@@ -1,0 +1,33 @@
+header {
+    background: #000;
+    color: #fff;
+    min-height: auto;
+    padding: 1%;
+    ul {
+        display: flex;
+        align-items: center;
+        li:first-child {
+            margin-right:auto;
+            padding-left: 3%;
+        }
+        .MuiButton-root {
+            color: #fff;
+        }
+    }
+}
+
+.wapper {
+    min-height: 100vh;
+    position: relative; /*←相対位置*/
+}
+//Navigation style
+.makeStyles-root-1 {
+    width: 100% !important;
+    border-top: 1px solid #e3e3e3;
+    position: absolute;
+    bottom: 0;
+}
+.MuiBottomNavigationAction-root.Mui-selected {
+    color: #fff !important;
+    background: #000;
+}
