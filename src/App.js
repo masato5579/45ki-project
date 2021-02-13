@@ -6,17 +6,22 @@ import Login from "./Entrance/Login";
 import SignUp from "./Entrance/SignUp";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { AuthProvider } from "./Route/AuthService";
+
+import LoggedInRoute from "./Route/LoggedInRoute";
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Room} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/Chat" component={Chat} />
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <LoggedInRoute exact path="/" component={Room} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/Chat" component={Chat} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 };
 
