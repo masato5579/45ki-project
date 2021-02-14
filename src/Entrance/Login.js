@@ -7,6 +7,7 @@ const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //firebaseにemailとpassword あったらログイン
   const handleSuibmit = (e) => {
     e.preventDefault();
     firebase
@@ -20,8 +21,10 @@ const Login = ({ history }) => {
       });
   };
 
+  //ユーザー情報
   const user = useContext(AuthContext);
 
+  //usetがあったら自動的にリダイレクト
   if (user) {
     return <Redirect to="/" />;
   }

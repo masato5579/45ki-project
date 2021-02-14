@@ -3,7 +3,7 @@ import "../scss/App.scss";
 import Header from "./common/Header";
 import Navigation from "./common/Navigation";
 
-function App() {
+function Room() {
   return (
     //React.Fragment
     <>
@@ -15,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default Room;
