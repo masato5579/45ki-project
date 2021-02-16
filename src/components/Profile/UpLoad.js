@@ -68,24 +68,25 @@ const UpLoad = () => {
       }
     );
   };
-  
-  return (
-    <div className="wapper">
-    <Header />
-      upload
-      {error && <div variant="danger">{error}</div>}
 
-      <form onSubmit={onSubmit}>
-        <input type="file" onChange={handleImage} />
-        <button onClick={onSubmit}>Upload</button>
-      </form>
-      {progress !== 100 && <LinearProgressWithLabel value={progress} />}
-      {imageUrl && (
-        <div>
-          <img width="400px" src={imageUrl} alt="uploaded" />
-        </div>
+  return (
+    <div>
+    <Header />
+      <div className="wapper">
+      upload
+        {error && <div variant="danger">{error}</div>}
+        <form onSubmit={onSubmit}>
+          <input type="file" onChange={handleImage} />
+          <button onClick={onSubmit}>Upload</button>
+        </form>
+        {progress !== 100 && <LinearProgressWithLabel value={progress} />}
+        {imageUrl && (
+          <div>
+            <img width="400px" src={imageUrl} alt="uploaded" />
+          </div>
       ) }
       <Navigation />
+    </div>
     </div>
   );
 };
