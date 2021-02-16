@@ -10,6 +10,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
+
 const UpLoad = () => {
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -37,11 +38,11 @@ const UpLoad = () => {
 
     // アップロード処理
     console.log("アップロード処理");
-    const storageRef = storage.ref("images"); //どのフォルダの配下に入れるかを設定
+    //Firebase Storage の保存先とファイル名
+    const storageRef = storage.ref("images"); 
     const imagesRef = storageRef.child(image.name); //ファイル名
 
     console.log("ファイルをアップする行為");
-    console.log("ファイルをアップする行為2");
     const upLoadTask = imagesRef.put(image);
     console.log("タスク実行前");
 
@@ -67,7 +68,7 @@ const UpLoad = () => {
       }
     );
   };
-
+  
   return (
     <div className="wapper">
     <Header />
