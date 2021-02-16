@@ -1,15 +1,12 @@
 import firebase from "firebase/app";
 
-<<<<<<< HEAD
 //firebase storage インポート（画像UPLOAD用）
 import "firebase/storage";
 
-=======
 import "firebase/firestore";
 import "firebase/auth";
 
 //firebaseユーザー情報
->>>>>>> 6b45c17709cd2f79f89689540a738482f12e5143
 const firebaseConfig = {
   apiKey: "AIzaSyDLHXvJp6zytavwT7xWvl45RuCfqyGduyU",
   authDomain: "th-app-30797.firebaseapp.com",
