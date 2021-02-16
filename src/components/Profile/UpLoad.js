@@ -1,15 +1,16 @@
-import React , { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
 import { storage } from "../../Firebase/firebase.js";
+import firebase from "../../Firebase/firebase";
+import { AuthContext } from "../../Route/AuthService";
 
 //design 用
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-
 
 const UpLoad = () => {
   const [image, setImage] = useState("");
@@ -25,6 +26,7 @@ const UpLoad = () => {
     setError("");
   };
 
+  const user = useContext(AuthContext);
   const onSubmit = (event) => {
     //ブラウザデフォルトの挙動を止める
     event.preventDefault();
@@ -39,7 +41,7 @@ const UpLoad = () => {
     // アップロード処理
     console.log("アップロード処理");
     //Firebase Storage の保存先とファイル名
-    const storageRef = storage.ref("images"); 
+    const storageRef = storage.ref("images");
     const imagesRef = storageRef.child(image.name); //ファイル名
 
     console.log("ファイルをアップする行為");
@@ -64,16 +66,39 @@ const UpLoad = () => {
         upLoadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log("File available at", downloadURL);
           setImageUrl(downloadURL);
+          firebase
+            .firestore()
+            .collection("image")
+            .add({
+              url: downloadURL,
+              user: user.displayName,
+              dates: String(new Date()),
+            });
         });
       }
     );
   };
 
+  const [userInfo, setUserInfo] = useState("");
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("image")
+      .orderBy("dates", "desc")
+      .onSnapshot((snapshot) => {
+        const userinfo = snapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        setUserInfo(userinfo);
+      });
+  }, []);
+
   return (
     <div>
-    <Header />
+      <Header />
       <div className="wapper">
-      upload
+        upload
         {error && <div variant="danger">{error}</div>}
         <form onSubmit={onSubmit}>
           <input type="file" onChange={handleImage} />
@@ -84,9 +109,26 @@ const UpLoad = () => {
           <div>
             <img width="400px" src={imageUrl} alt="uploaded" />
           </div>
-      ) }
-      <Navigation />
-    </div>
+        )}
+        <div>
+          {/* {userInfo ? (
+            userInfo.map((userinfo) => (
+              <div>
+                <p>{userinfo.user}</p>
+                <img src={userinfo.url} style={{ width: "200px" }} />
+              </div>
+            ))
+          ) : (
+            <p>...loading</p>
+          )} */}
+          {userInfo ? (
+            <img src={userInfo[0].url} style={{ width: "200px" }} />
+          ) : (
+            <p>loading</p>
+          )}
+        </div>
+        <Navigation />
+      </div>
     </div>
   );
 };
