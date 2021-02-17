@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
-import shortid from 'shortid'
+import shortid from 'shortid';
 
-import Form from './Form'
-import List from './List'
+import Form from './Form';
+import List from './List';
+
 
 const Todo = () => {
 
@@ -27,9 +28,9 @@ const Todo = () => {
   return (
     <div className="wapper">
       <Header />
-      <div><h1>Todoの作成</h1></div>
-      <Form addTodo={addTodo} />
-      <List todos={todos} deleteTodo={deleteTodo} />
+        <div><h1>Todoの作成</h1></div>
+        <Form addTodo={addTodo} />
+        <List todos={todos} deleteTodo={deleteTodo} />
       <Navigation />
     </div>
   );
