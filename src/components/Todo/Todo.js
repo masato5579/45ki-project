@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
 import shortid from 'shortid';
+import styled from 'styled-components';
 
 import Form from './Form';
 import List from './List';
@@ -28,12 +29,34 @@ const Todo = () => {
   return (
     <div className="wapper">
       <Header />
-        <div><h1>Todoの作成</h1></div>
-        <Form addTodo={addTodo} />
-        <List todos={todos} deleteTodo={deleteTodo} />
+        <Container>
+          <div><h1>Todoの作成</h1></div>
+          <Form addTodo={addTodo} />
+          <List todos={todos} deleteTodo={deleteTodo} />
+        </Container>
       <Navigation />
     </div>
   );
 };
 
 export default Todo;
+
+//スタイル
+const Container = styled.div`
+font-size: 40px;
+// background-color: red;
+h1 {
+  padding: 10px;
+}
+form {
+  text-align: center;
+  input {
+    width: 300px;
+    height: 50px;
+    font-size: 1em;
+    margin: 10px 0;
+    border: 3px solid black;
+    border-radius: 0.1em;
+  }
+}
+`;
