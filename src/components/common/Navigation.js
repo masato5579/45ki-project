@@ -38,7 +38,12 @@ export default function SimpleBottomNavigation() {
         component={Link}
         to="/Chat"
       />
-      <BottomNavigationAction label="Todo" icon={<FormatListBulletedIcon />} />
+      <BottomNavigationAction
+        label="Todo"
+        icon={<FormatListBulletedIcon />}
+        component={Link}
+        to="/Todo"
+      />
       <BottomNavigationAction label="Album" icon={<ImportContactsIcon />} />
       <BottomNavigationAction label="Recommend" icon={<ThumbUpAltIcon />} />
     </BottomNavigation>
