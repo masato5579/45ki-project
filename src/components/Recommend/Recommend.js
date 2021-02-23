@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import Header from "../common/Header";
 import Nav from "../common/Navigation";
 import ThePannel from "./TabPannel";
-import PannelContent from "./PannelContent";
+import WysiwygCustom from "./Wysiwyg/WysiwygCustom";
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -53,13 +53,13 @@ const Recommend = () => {
         </Tabs>
       </Paper>
       <ThePannel value={value} index={0}>
-        <PannelContent />
+        <WysiwygCustom />
       </ThePannel>
       <ThePannel value={value} index={1}>
-        <PannelContent />
+        {/* <WysiwygCustom /> */}
       </ThePannel>
       <ThePannel value={value} index={2}>
-        <PannelContent />
+        {/* <WysiwygCustom /> */}
       </ThePannel>
       <Nav />
     </>
