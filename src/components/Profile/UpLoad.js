@@ -1,21 +1,25 @@
-import React , { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
 import { storage } from "../../Firebase/firebase.js";
+import firebase from "../../Firebase/firebase";
+import { AuthContext } from "../../Route/AuthService";
+
+import styled from "styled-components";
 
 //design 用
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-
 const UpLoad = () => {
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
   const [progress, setProgress] = useState(100);
+  const [useName, setUserName] = useState("");
 
   //画像が更新された時のイベント
   const handleImage = (event) => {
@@ -25,6 +29,11 @@ const UpLoad = () => {
     setError("");
   };
 
+  // const handleName = (event) => {
+  //   const name = event.target.
+  // }
+
+  const user = useContext(AuthContext);
   const onSubmit = (event) => {
     //ブラウザデフォルトの挙動を止める
     event.preventDefault();
@@ -39,7 +48,7 @@ const UpLoad = () => {
     // アップロード処理
     console.log("アップロード処理");
     //Firebase Storage の保存先とファイル名
-    const storageRef = storage.ref("images"); 
+    const storageRef = storage.ref("images");
     const imagesRef = storageRef.child(image.name); //ファイル名
 
     console.log("ファイルをアップする行為");
@@ -55,26 +64,60 @@ const UpLoad = () => {
         console.log(percent + "% done");
         setProgress(percent);
       },
+
       (error) => {
         console.log("err", error);
         setError("ファイルアップに失敗しました。" + error);
         setProgress(100); //実行中のバーを消す
       },
+
       () => {
         upLoadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log("File available at", downloadURL);
           setImageUrl(downloadURL);
+          firebase
+            .firestore()
+            .collection("image")
+            .add({
+              url: downloadURL,
+              user: user.displayName,
+              dates: String(new Date()),
+            });
         });
       }
     );
   };
 
+  const [userInfo, setUserInfo] = useState("");
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("image")
+      .orderBy("dates", "desc")
+      .onSnapshot((snapshot) => {
+        const userinfo = snapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        setUserInfo(userinfo);
+      });
+  }, []);
+
   return (
     <div>
-    <Header />
-      <div className="wapper">
-      upload
+      <Header />
+      <UploadWrap>
+      <h1>upload</h1>
         {error && <div variant="danger">{error}</div>}
+        <ImageBloclk>
+          {userInfo ? (
+              <img src={userInfo[0].url} />
+            ) : (
+              <p>loading</p>
+              
+            )}
+        
+        </ImageBloclk>
         <form onSubmit={onSubmit}>
           <input type="file" onChange={handleImage} />
           <button onClick={onSubmit}>Upload</button>
@@ -82,11 +125,25 @@ const UpLoad = () => {
         {progress !== 100 && <LinearProgressWithLabel value={progress} />}
         {imageUrl && (
           <div>
-            <img width="400px" src={imageUrl} alt="uploaded" />
+            <img src={imageUrl} alt="uploaded" />
           </div>
-      ) }
+        )}
+        <div>
+          {/* {userInfo ? (
+            userInfo.map((userinfo) => (
+              <div>
+                <p>{userinfo.user}</p>
+                <img src={userinfo.url} style={{ width: "200px" }} />
+              </div>
+            ))
+          ) : (
+            <p>...loading</p>
+          )} */}
+
+        </div>
+        
+      </UploadWrap>
       <Navigation />
-    </div>
     </div>
   );
 };
@@ -106,3 +163,23 @@ function LinearProgressWithLabel(props) {
   );
 }
 export default UpLoad;
+
+const UploadWrap = styled.div`
+  padding: 80px 20px;
+  margin: 0 auto;
+  height: 100vh;
+
+  img {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #3e3e3e;
+  }
+`;
+
+const ImageBloclk = styled.div`
+  display: block;
+`;

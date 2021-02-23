@@ -33,6 +33,10 @@ const Chat = () => {
   //firebaseにcontentをadd
   const handleSubmit = (e) => {
     e.preventDefault();
+    //未入力時のアラート
+    if (value === '') {
+      return alert('未入力です');
+    }
     firebase
       .firestore()
       .collection("messages")
@@ -41,6 +45,8 @@ const Chat = () => {
         user: user.displayName,
         dates: String(new Date()),
       });
+      //入力後に初期化
+      setValue('')
   };
 
   return (
@@ -48,6 +54,7 @@ const Chat = () => {
       <Header />
       <MessageWrap>
         <MessageRow>
+        <h1>Caht APP</h1>
           <ul>
             {messages ? (
               messages.map((message) => (
@@ -78,7 +85,6 @@ const Chat = () => {
             endIcon={<SendIcon />}
             type="submit"
           >
-            
           </Button>
         </Form>
       </FormWrap>
@@ -94,6 +100,7 @@ const MessageWrap = styled.div`
   padding: 30px 0 0 0;
   overflow: scroll;
   background-image: url("https://corriente.top/wp-content/uploads/2016/06/ios10-wallpaper.jpg");
+  height: 100vh;
 `;
 
 const MessageRow = styled.div`
@@ -117,14 +124,15 @@ const MessageRow = styled.div`
         p {
           position: absolute;
           top:0;
-          left: 50px;
+          left: 60px;
         }
         + P {
           position: relative;
-          top:33px;
-          left: -13px;
+          top:25px;
+          left: 0;
           width: 100%;
-          
+          min-height: 40px;
+          word-break: break-all;
           padding 10px;
           background-color: #fff;
           border-radius: 15px;
@@ -149,7 +157,7 @@ const MessageRow = styled.div`
 const User = styled.div`
   img {
     border-radius: 50%;
-    width: 50%;
+    width: 80%;
   }
   p {
     text-align: center;
@@ -162,7 +170,11 @@ const Content = styled.p`
 `;
 
 const FormWrap = styled.div`
+  position: fixed;
+  bottom: 53px;
+  width: 100%;
   background: #fff;
+  boder-top: 1px solid #3e3e3e;
 `;
 
 const Form = styled.form`
@@ -186,10 +198,9 @@ const Form = styled.form`
     border: 1px solid #3e3e3e;    
   }
   button {
-    height: 40%;
     min-width: 10% !important;
     font-size: 16px;
-    min-width: 60px;
+    height: 40px;
     @media (max-width: 768px) {
       // width: 25%;
     }
