@@ -3,6 +3,8 @@ import { Redirect } from "react-router-dom";
 import firebase from "../Firebase/firebase";
 import { AuthContext } from "../Route/AuthService";
 
+import styled from "styled-components";
+
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,11 +33,11 @@ const Login = ({ history }) => {
 
   return (
     <>
+    <LoginWarpper>
       <h1>Login</h1>
       <form onSubmit={handleSuibmit}>
-        <div>
-          <label htmlFor="email">E-mail</label>
-          <input
+        <InputlBlock>
+          <input 
             type="email"
             id="e-mail"
             name="e-mail"
@@ -44,10 +46,9 @@ const Login = ({ history }) => {
               setEmail(e.target.value);
             }}
           />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
+        </InputlBlock>
+        <InputlBlock>
+          <input 
             type="password"
             id="password"
             name="password"
@@ -56,11 +57,41 @@ const Login = ({ history }) => {
               setPassword(e.target.value);
             }}
           />
-        </div>
-        <button type="submit">Login</button>
+        </InputlBlock>        
+        <BTM type="submit">Login</BTM>
       </form>
+      </LoginWarpper>
     </>
   );
 };
 
 export default Login;
+
+const LoginWarpper = styled.div`
+  padding: 30px 20px;
+  overflow: scroll;
+  margin: 100px 10px;
+  border: 1px solid #3e3e3e;
+  backgrouind: #000;
+  border-radius: 10px;
+
+`;
+
+const InputlBlock = styled.div`
+  padding-bottom: 20px;
+  input {
+    height: 40px; 
+  }
+`;
+
+const BTM = styled.button`
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+`;

@@ -1,3 +1,7 @@
+#root {
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
+}
+
 header {
   background: #000;
   color: #fff;
@@ -5,6 +9,7 @@ header {
   padding: 1%;
   position: fixed;
   width: 100%;
+  z-index:10;
   ul {
     display: flex;
     align-items: center;
@@ -18,10 +23,20 @@ header {
   }
 }
 
+
 .wapper {
   min-height: 100vh;
   position: relative; /*←相対位置*/
 }
+
+h1 {
+  margin: 0 auto;
+  padding-bottom: 20px;
+  width: 100px;
+  text-align: center;
+  font-weight: bold;
+}
+
 //Navigation style
 .makeStyles-root-1 {
   width: 100% !important;
@@ -32,4 +47,8 @@ header {
 .MuiBottomNavigationAction-root.Mui-selected {
   color: #fff !important;
   background: #000;
+}
+
+input, select {
+  width: 100%;
 }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import firebase from "../Firebase/firebase";
 
+import styled from "styled-components";
+
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,10 +25,10 @@ const SignUp = () => {
   };
   return (
     <>
+     <LoginWarpper>
       <h1>SignUp</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name</label>
+        <InputlBlock>
           <input
             type="Name"
             id="Name"
@@ -34,9 +36,8 @@ const SignUp = () => {
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
           />
-        </div>
-        <div>
-          <label htmlFor="email">E-mail</label>
+        </InputlBlock>
+        <InputlBlock>
           <input
             type="email"
             id="email"
@@ -44,9 +45,8 @@ const SignUp = () => {
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
+        </InputlBlock>
+        <InputlBlock>
           <input
             type="password"
             id="password"
@@ -54,11 +54,41 @@ const SignUp = () => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <button type="submit">SignUp</button>
+         </InputlBlock>
+        <BTM type="submit">SignUp</BTM>
       </form>
+      </LoginWarpper>
     </>
   );
 };
 
 export default SignUp;
+
+const LoginWarpper = styled.div`
+  padding: 30px 20px;
+  overflow: scroll;
+  margin: 100px 10px;
+  border: 1px solid #3e3e3e;
+  backgrouind: #000;
+  border-radius: 10px;
+
+`;
+
+const InputlBlock = styled.div`
+  padding-bottom: 20px;
+  input {
+    height: 40px; 
+  }
+`;
+
+const BTM = styled.button`
+  padding: 10px;
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+  display: block;
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+`;
