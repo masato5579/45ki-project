@@ -30,6 +30,8 @@ import ImageAdd from "./Image&Video/ImageAdd";
 import "@draft-js-plugins/inline-toolbar/lib/plugin.css";
 import "../../../index.css";
 import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 
 const videoPlugin = createVideoPluguin();
 const imagePlugin = createImagePlugin();
@@ -39,6 +41,12 @@ const plugins = [videoPlugin, imagePlugin, inlineToolbarPlugin];
 
 const WysiwygCustom = () => {
   const editor = useRef();
+
+  const [open, setOpen] = useState(false);
+
+  const toggleEditor = () => {
+    setOpen(!open);
+  };
 
   const user = useContext(AuthContext);
 
@@ -79,7 +87,7 @@ const WysiwygCustom = () => {
           const dates = r.dates;
           return { content: content, dates: dates };
         });
-        console.log(recs);
+        console.log(recs[0]);
         setEdit(recs);
       });
   }, []);
@@ -106,61 +114,92 @@ const WysiwygCustom = () => {
 
   return (
     <Container>
-      <h1>おすすめ</h1>
-      <div className="editor edit" onClick={focus}>
-        <Editor
-          editorState={editorState}
-          onChange={onChange}
-          plugins={plugins}
-          ref={(element) => {
-            editor.current = element;
-          }}
-          placeholder="ここに記事を入力できるよ"
-        />
-        <InlineToolbar>
-          {(externalProps) => (
-            <React.Fragment>
-              <ItalicButton {...externalProps} />
-              <BoldButton {...externalProps} />
-              <UnderlineButton {...externalProps} />
-              <CodeButton {...externalProps} />
-              <HeadlineOneButton {...externalProps} />
-              <HeadlineTwoButton {...externalProps} />
-              <HeadlineThreeButton {...externalProps} />
-              <Separator {...externalProps} />
-              <UnorderedListButton {...externalProps} />
-              <OrderedListButton {...externalProps} />
-              <BlockquoteButton {...externalProps} />
-            </React.Fragment>
-          )}
-        </InlineToolbar>
-      </div>
-      <VideoAdd
-        editorState={editorState}
-        onChange={onChange}
-        modifier={videoPlugin.addVideo}
-      />
-      <ImageAdd
-        editorState={editorStateImg}
-        onChange={onChange}
-        modifier={imagePlugin.addImage}
-      />
-      <div>
-        <button onClick={onSave}>保存</button>
-      </div>
-
-      <ul>
+      <Row1>
+        <h1>おすすめ</h1>
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<AddToPhotosIcon />}
+          onClick={toggleEditor}
+        >
+          記事を追加
+        </Button>
+      </Row1>
+      <Wrap style={{ display: open ? "block" : "none" }}>
+        <Row>
+          <div className="editor edit" onClick={focus}>
+            <Editor
+              editorState={editorState}
+              onChange={onChange}
+              plugins={plugins}
+              ref={(element) => {
+                editor.current = element;
+              }}
+              placeholder="ここに記事を入力できるよ"
+            />
+            <InlineToolbar>
+              {(externalProps) => (
+                <React.Fragment>
+                  <ItalicButton {...externalProps} />
+                  <BoldButton {...externalProps} />
+                  <UnderlineButton {...externalProps} />
+                  <CodeButton {...externalProps} />
+                  <HeadlineOneButton {...externalProps} />
+                  <HeadlineTwoButton {...externalProps} />
+                  <HeadlineThreeButton {...externalProps} />
+                  <Separator {...externalProps} />
+                  <UnorderedListButton {...externalProps} />
+                  <OrderedListButton {...externalProps} />
+                  <BlockquoteButton {...externalProps} />
+                </React.Fragment>
+              )}
+            </InlineToolbar>
+          </div>
+          <Col>
+            <div>
+              <VideoAdd
+                editorState={editorState}
+                onChange={onChange}
+                modifier={videoPlugin.addVideo}
+              />
+              <ImageAdd
+                editorState={editorStateImg}
+                onChange={onChange}
+                modifier={imagePlugin.addImage}
+              />
+            </div>
+            <div>
+              <div>
+                <Button onClick={onSave} variant="contained" color="primary">
+                  保存する
+                </Button>
+              </div>
+              <div>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<AddToPhotosIcon />}
+                  onClick={toggleEditor}
+                >
+                  エディターを閉じる
+                </Button>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Wrap>
+      <Ul>
         {edit ? (
           edit.map((ed) => (
             <div className="A">
-              <div dangerouslySetInnerHTML={{ __html: ed.content }}></div>
               <div>{ed.dates}</div>
+              <div dangerouslySetInnerHTML={{ __html: ed.content }}></div>
             </div>
           ))
         ) : (
           <p>...loading</p>
         )}
-      </ul>
+      </Ul>
     </Container>
   );
 };
@@ -169,6 +208,42 @@ export default WysiwygCustom;
 
 const Container = styled.div`
   z-index: 1;
+`;
+
+const Wrap = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const Row1 = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Col = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const Row = styled.div`
+  background: #eee;
+  padding: 160px 5%;
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
+  .editor {
+    height: 100%;
+  }
+`;
+
+const Ul = styled.ul`
+  margin: 0;
+  margin-top: 30px;
 `;
 
 // <div dangerouslySetInnerHTML={{ __html: edit }}></div>
