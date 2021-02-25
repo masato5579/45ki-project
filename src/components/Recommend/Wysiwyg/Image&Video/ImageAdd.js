@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import ImageIcon from "@material-ui/icons/Image";
+
+import Button from "@material-ui/core/Button";
+import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 
 const ImageAdd = (props) => {
   const [url, setUrl] = useState("");
@@ -13,14 +17,20 @@ const ImageAdd = (props) => {
 
   return (
     <div>
-      <h5>Imageの埋め込み</h5>
+      <ImageIcon />
       <input
         type="text"
         placeholder="Paste the image url"
         onChange={changeUrl}
         value={url}
       />
-      <button onClick={addImage}>Add</button>
+      <Button
+        onClick={addImage}
+        variant="contained"
+        startIcon={<AddPhotoAlternateIcon />}
+      >
+        埋め込む
+      </Button>
     </div>
   );
 };

@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
+import AddIcon from "@material-ui/icons/Add";
+import QueuePlayNextIcon from "@material-ui/icons/QueuePlayNext";
 
 const VideoAdd = (props) => {
   const [url, setUrl] = useState("");
@@ -13,14 +17,20 @@ const VideoAdd = (props) => {
 
   return (
     <div>
-      <h5>videoの埋め込み</h5>
+      <VideoLibraryIcon />
       <input
         type="text"
         placeholder="paste the video url"
         onChange={ChangeUrl}
         value={url}
       />
-      <button onClick={addVideo}>Add</button>
+      <Button
+        onClick={addVideo}
+        variant="contained"
+        startIcon={<QueuePlayNextIcon />}
+      >
+        埋め込む
+      </Button>
     </div>
   );
 };
