@@ -45,7 +45,12 @@ export default function SimpleBottomNavigation() {
         to="/Todo"
       />
       <BottomNavigationAction label="Album" icon={<ImportContactsIcon />} />
-      <BottomNavigationAction label="Recommend" icon={<ThumbUpAltIcon />} />
+      <BottomNavigationAction
+        label="Recommend"
+        icon={<ThumbUpAltIcon />}
+        component={Link}
+        to="/Recommend"
+      />
     </BottomNavigation>
   );
 }
