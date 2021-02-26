@@ -1,7 +1,6 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import firebase from "../../../Firebase/firebase";
-import { AuthContext } from "../../../Route/AuthService";
 
 import Editor, { createEditorStateWithText } from "@draft-js-plugins/editor";
 
@@ -40,34 +39,42 @@ const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [videoPlugin, imagePlugin, inlineToolbarPlugin];
 
-const WysiwygCustom = () => {
+const WysiwygCustom = (props) => {
   const editor = useRef();
 
-  const user = useContext(AuthContext);
+  //userの名前
+  const userName = String(props.Name);
 
+  //エディターの開け閉め
   const [open, setOpen] = useState(false);
 
+  //firebaseに送信する内容
   const [edit, setEdit] = useState();
 
+  //editorに入力した文字
   const [editorState, setEditorState] = useState(createEditorStateWithText(""));
 
+  //Editorに挿入した画像
   const [editorStateImg, setEditorStateImg] = useState(
     createEditorStateWithText("")
   );
 
+  //Editorの開け閉め
   const toggleEditor = () => {
     setOpen(!open);
   };
 
+  //入力input用State
   const onChange = (editorState) => {
     setEditorState(editorState);
     setEditorStateImg(editorState);
   };
 
+  //firebaseからのデータを同期
   useEffect(() => {
     firebase
       .firestore()
-      .collection("recommend")
+      .collection(userName)
       .orderBy("dates", "desc")
       .onSnapshot((snapshot) => {
         const rec = snapshot.docs.map((doc) => {
@@ -82,6 +89,7 @@ const WysiwygCustom = () => {
       });
   }, []);
 
+  //記事を保存
   const onSave = (e) => {
     e.preventDefault();
     const editTag = document.querySelector(".edit");
@@ -91,13 +99,16 @@ const WysiwygCustom = () => {
     );
     firebase
       .firestore()
-      .collection("recommend")
+      .collection(userName)
       .add({
         content: editTagString,
         dates: String(new Date()),
       });
+    setOpen(!open);
+    alert("記事が追加されました。");
   };
 
+  //editorにfocus
   const focus = () => {
     editor.current.focus();
   };

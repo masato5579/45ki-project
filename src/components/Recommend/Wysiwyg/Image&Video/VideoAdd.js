@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
-import AddIcon from "@material-ui/icons/Add";
 import QueuePlayNextIcon from "@material-ui/icons/QueuePlayNext";
 
 const VideoAdd = (props) => {
+  //動画のUrl
   const [url, setUrl] = useState("");
 
+  //動画の追加
   const addVideo = () => {
     props.onChange(props.modifier(props.editorState, { src: url }));
   };
 
+  //input入力
   const ChangeUrl = (evt) => {
     setUrl(evt.target.value);
   };

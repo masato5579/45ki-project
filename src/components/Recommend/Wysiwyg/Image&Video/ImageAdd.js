@@ -5,12 +5,15 @@ import Button from "@material-ui/core/Button";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 
 const ImageAdd = (props) => {
+  //画像のUrl
   const [url, setUrl] = useState("");
 
+  //画像の追加
   const addImage = () => {
     props.onChange(props.modifier(props.editorState, url));
   };
 
+  //input欄
   const changeUrl = (evt) => {
     setUrl(evt.target.value);
   };

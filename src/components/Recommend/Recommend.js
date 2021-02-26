@@ -21,8 +21,10 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 const Recommend = () => {
+  //クラスの適用
   const classes = useStyle();
 
+  //タブの設定
   const a11yProps = (index) => {
     return {
       id: `sample-tab-${index}`,
@@ -30,11 +32,17 @@ const Recommend = () => {
     };
   };
 
+  //input value
   const [value, setValue] = useState(0);
 
+  //タブの切り替え
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  //Name
+  const Name = ["arai", "maehara", "sakadume"];
+
   return (
     <>
       <Header />
@@ -53,13 +61,13 @@ const Recommend = () => {
         </Tabs>
       </Paper>
       <ThePannel value={value} index={0}>
-        <WysiwygCustom />
+        <WysiwygCustom Name={Name[0]} />
       </ThePannel>
       <ThePannel value={value} index={1}>
-        {/* <WysiwygCustom /> */}
+        <WysiwygCustom Name={Name[1]} />
       </ThePannel>
       <ThePannel value={value} index={2}>
-        {/* <WysiwygCustom /> */}
+        <WysiwygCustom Name={Name[2]} />
       </ThePannel>
       <Nav />
     </>
