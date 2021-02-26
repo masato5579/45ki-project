@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   root: {
     width: 500,
     position: "fixed",
+    bottom: "0",
   },
 });
 
