@@ -111,25 +111,25 @@ const UpLoad = () => {
         {error && <div variant="danger">{error}</div>}
         <ImageBloclk>
           {userInfo ? (
-              <img src={userInfo[0].url} />
+              <img src={userInfo[0].url} alt="0番目の画像"/>
             ) : (
               <p>loading</p>
               
             )}
-        
+            
         </ImageBloclk>
         <form onSubmit={onSubmit}>
           <input type="file" onChange={handleImage} />
           <button onClick={onSubmit}>Upload</button>
         </form>
         {progress !== 100 && <LinearProgressWithLabel value={progress} />}
-        {imageUrl && (
+        {/* {imageUrl && (
           <div>
             <img src={imageUrl} alt="uploaded" />
           </div>
-        )}
-        <div>
-          {/* {userInfo ? (
+        )} */}
+        {/* <div>
+          {userInfo ? (
             userInfo.map((userinfo) => (
               <div>
                 <p>{userinfo.user}</p>
@@ -138,9 +138,15 @@ const UpLoad = () => {
             ))
           ) : (
             <p>...loading</p>
-          )} */}
+          )}
 
+        </div> */}
+      {imageUrl && (
+        <div>
+          <img width="400px" src={imageUrl} alt="uploaded" />
         </div>
+      )}
+        
         
       </UploadWrap>
       <Navigation />
@@ -168,7 +174,6 @@ const UploadWrap = styled.div`
   padding: 80px 20px;
   margin: 0 auto;
   height: 100vh;
-
   img {
     width: 100px;
     height: 100px;

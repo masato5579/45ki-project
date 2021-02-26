@@ -1,6 +1,29 @@
 #root {
   font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
 }
+ul {
+  margin-left: 30px;
+}
+
+ol {
+  margin-left: 30px;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+.A .edit {
+  background: #ddd;
+}
 
 header {
   background: #000;
@@ -9,10 +32,14 @@ header {
   padding: 1%;
   position: fixed;
   width: 100%;
-  z-index:10;
+  z-index: 99;
   ul {
     display: flex;
     align-items: center;
+    margin-left: 0;
+    li {
+      list-style: none;
+    }
     li:first-child {
       margin-right: auto;
       padding-left: 3%;
@@ -51,6 +78,37 @@ h1 {
   background: #000;
 }
 
-input, select {
-  width: 100%;
+.editor {
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  cursor: text;
+  padding: 16px;
+  border-radius: 2px;
+  margin-bottom: 2em;
+  box-shadow: inset 0px 1px 8px -3px #ababab;
+  background: #fefefe;
+}
+
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
+}
+
+.headlineButtonWrapper {
+  display: inline-block;
+}
+
+.headlineButton {
+  background: #fbfbfb;
+  color: #888;
+  font-size: 18px;
+  border: 0;
+  padding-top: 5px;
+  vertical-align: bottom;
+  height: 34px;
+  width: 36px;
+}
+
+.headlineButton:hover,
+.headlineButton:focus {
+  background: #f3f3f3;
 }
