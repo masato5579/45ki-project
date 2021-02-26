@@ -21,10 +21,9 @@ const Item = ({ content, id, deleteTodo }) => {
             {textDecoration: isDone ? 'line-through' : 'none'}
           }>{content}</span>
           <Button onClick={handleDelete}
-            variant="contained"
             color="secondary"
             startIcon={<DeleteIcon />}
-          >Delete</Button>
+          ></Button>
       </li>
     </Itemdesign>
   )
@@ -34,13 +33,12 @@ export default Item
 
 //スタイル
 const Itemdesign = styled.div`
-  background-color: white;
   li {
-    background-color: #dbedf0;
-    margin: 10px 20%;
+    background : #fff;
     padding: 5px;
+    margin-bottom: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;    
     border-radius: 0.1em;
     box-shadow:5px 5px 10px;
     border:0px solid #000;
@@ -48,15 +46,16 @@ const Itemdesign = styled.div`
     input {
       transform: scale(2);
       margin: auto 10px;
+      width: auto;
     }
     span {
-      font-size: 30px;
-      // color: green;
+      width: 100%;
+      font-size: 20px;
       margin: auto 10px;
       word-break: break-all;
     }
     button {
-      
+      height: 40px;
     }
   }
 `;

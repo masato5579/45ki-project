@@ -27,36 +27,44 @@ const Todo = () => {
   }
 
   return (
-    <div className="wapper">
+    <Wapper>
       <Header />
         <Container>
-          <div><h1>Todoの作成</h1></div>
-          <Form addTodo={addTodo} />
+          <h1>Todoの作成</h1>
+
           <List todos={todos} deleteTodo={deleteTodo} />
         </Container>
+        <FormWrap>
+            <Form addTodo={addTodo} />
+          </FormWrap>
       <Navigation />
-    </div>
+    </Wapper>
   );
 };
 
 export default Todo;
 
 //スタイル
+const Wapper = styled.div`
+  background-image: url("https://i.pinimg.com/originals/e6/6d/13/e66d13001800b7c06a1c5fb9080a0e1a.jpg");
+  height: 100vh;
+`;
+
+const FormWrap = styled.div`
+  background: #fff;
+  boder-top: 1px solid #3e3e3e;
+`;
+
 const Container = styled.div`
 font-size: 40px;
+width: 90%;
+margin: 0 auto;
+padding: 80px 0 0 0;
+height: 80vh;
 // background-color: red;
-h1 {
-  padding: 10px;
-}
-form {
-  text-align: center;
-  input {
-    width: 300px;
-    height: 50px;
-    font-size: 1em;
-    margin: 10px 0;
-    border: 3px solid black;
-    border-radius: 0.1em;
-  }
+
+
+
+
 }
 `;

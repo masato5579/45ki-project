@@ -33,6 +33,10 @@ const Chat = () => {
   //firebaseにcontentをadd
   const handleSubmit = (e) => {
     e.preventDefault();
+    //未入力時のアラート
+    if (value === '') {
+      return alert('未入力です');
+    }
     firebase
       .firestore()
       .collection("messages")
@@ -41,6 +45,8 @@ const Chat = () => {
         user: user.displayName,
         dates: String(new Date()),
       });
+      //入力後に初期化
+      setValue('')
   };
 
   return (
@@ -48,6 +54,7 @@ const Chat = () => {
       <Header />
       <MessageWrap>
         <MessageRow>
+        <h1>Caht APP</h1>
           <ul>
             {messages ? (
               messages.map((message) => (
@@ -78,7 +85,6 @@ const Chat = () => {
             endIcon={<SendIcon />}
             type="submit"
           >
-            送信
           </Button>
         </Form>
       </FormWrap>
@@ -93,7 +99,8 @@ export default Chat;
 const MessageWrap = styled.div`
   padding: 30px 0 0 0;
   overflow: scroll;
-  margin-bottom: 10px;
+  background-image: url("https://corriente.top/wp-content/uploads/2016/06/ios10-wallpaper.jpg");
+  height: 100vh;
 `;
 
 const MessageRow = styled.div`
@@ -106,11 +113,43 @@ const MessageRow = styled.div`
       width: 100%;
       display: flex;
       align-items: center;
-      background: #303f9e;
-      margin-bottom: 10px;
+      // background: #303f9e;
+      margin-bottom: 50px;
       color: #fff;
       padding: 10px;
       border-radius: 10px;
+      div {
+        position: relative;
+        z-index:0;
+        p {
+          position: absolute;
+          top:0;
+          left: 60px;
+        }
+        + P {
+          position: relative;
+          top:25px;
+          left: 0;
+          width: 100%;
+          min-height: 40px;
+          word-break: break-all;
+          padding 10px;
+          background-color: #fff;
+          border-radius: 15px;
+          color: #000;
+          &:before  {
+            content: "";
+            position: absolute;
+            top: 11%;
+            left: -13px;
+            margin-top: -15px;
+            border: 9px solid transparent;
+            border-right: 15px solid #fff;
+            z-index: 0;
+            transform: rotate(45deg);
+          }
+        }
+      }
     }
   }
 `;
@@ -118,6 +157,7 @@ const MessageRow = styled.div`
 const User = styled.div`
   img {
     border-radius: 50%;
+    width: 80%;
   }
   p {
     text-align: center;
@@ -130,7 +170,11 @@ const Content = styled.p`
 `;
 
 const FormWrap = styled.div`
-  background: #666666;
+  position: fixed;
+  bottom: 53px;
+  width: 100%;
+  background: #fff;
+  boder-top: 1px solid #3e3e3e;
 `;
 
 const Form = styled.form`
@@ -146,17 +190,19 @@ const Form = styled.form`
     width: 90%;
   }
   input {
-    width: 75%;
-    height: 50px;
+    width: 80%;
+    height: 45px;
+    padding: 10px;
     font-size: 20px;
+    border-radius: 24px;
+    border: 1px solid #3e3e3e;    
   }
   button {
-    height: 63%;
-    width: 20%;
+    min-width: 10% !important;
     font-size: 16px;
-    min-width: 90px;
+    height: 40px;
     @media (max-width: 768px) {
-      width: 25%;
+      // width: 25%;
     }
   }
 `;
