@@ -16,12 +16,14 @@ const useStyles = makeStyles({
   root: {
     width: 500,
     position: "fixed",
+    bottom: "0",
   },
 });
 
 export default function SimpleBottomNavigation() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  console.log("aaa");
 
   return (
     <BottomNavigation
