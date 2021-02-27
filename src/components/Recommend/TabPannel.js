@@ -6,13 +6,7 @@ const TabPannel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
-      role="tabpannel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-lebelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div hidden={value !== index} id={`simple-tabpanel-${index}`} {...other}>
       {value === index && (
         <Box p={3}>
           <Typography>{children}</Typography>

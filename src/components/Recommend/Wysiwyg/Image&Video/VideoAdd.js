@@ -19,7 +19,7 @@ const VideoAdd = (props) => {
   };
 
   return (
-    <Container>
+    <>
       <VideoLibraryIcon />
       <VideoWrap>
         <input
@@ -38,13 +38,11 @@ const VideoAdd = (props) => {
           埋め込む
         </Button>
       </ButtonWrap>
-    </Container>
+    </>
   );
 };
 
 export default VideoAdd;
-
-const Container = styled.div``;
 
 const VideoWrap = styled.div``;
 

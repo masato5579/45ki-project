@@ -21,7 +21,7 @@ const ImageAdd = (props) => {
   };
 
   return (
-    <div>
+    <>
       <ImageIcon />
       <InputWrap>
         <input
@@ -40,7 +40,7 @@ const ImageAdd = (props) => {
           埋め込む
         </Button>
       </ButtonWrap>
-    </div>
+    </>
   );
 };
 
