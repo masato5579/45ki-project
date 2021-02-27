@@ -13,6 +13,7 @@ import styled from "styled-components";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { aria } from "aria-query";
 
 const UpLoad = () => {
   //画像
@@ -43,8 +44,8 @@ const UpLoad = () => {
     setError("");
     if (image === "") {
       console.log("ファイルが選択されていません");
-      setError("ファイルが選択されていません");
-      return;
+      setError("");
+      return alert("ファイルが選択されていません")
     }
 
     // アップロード処理
@@ -79,8 +80,9 @@ const UpLoad = () => {
           setImageUrl(downloadURL);
           firebase
             .firestore()
-            .collection("image")
+            .collection("images")
             .add({
+              id: 1,
               url: downloadURL,
               user: user.displayName,
               dates: String(new Date()),
@@ -95,8 +97,8 @@ const UpLoad = () => {
   useEffect(() => {
     firebase
       .firestore()
-      .collection("image")
-      .orderBy("dates")
+      .collection("images")
+      .orderBy("dates", "desc")
       .onSnapshot((snapshot) => {
         const userinfo = snapshot.docs.map((doc) => {
           return doc.data();
@@ -106,10 +108,6 @@ const UpLoad = () => {
       });
   }, []);
 
-
-  console.lgo("userInfoの中身", userInfo.user)
-
-
   return (
     <div>
       <Header />
@@ -117,19 +115,18 @@ const UpLoad = () => {
       <h1>upload</h1>
         {error && <div variant="danger">{error}</div>}
         <ImageBloclk>
-        <p>{userInfo.user}</p>
         
           {/* /最新の画像がアップされたら最新に差し替えたい/ */}
-          
+          <>
+
+          </>
           {userInfo ? (
               <>
-                <p>{userInfo[0].user}</p>
-                <img src={userInfo[48].url} alt="{userInfo.user}"/>              
+                <p>{userInfo[0].id}</p>
+                <img src={userInfo[0].url} alt="プロフィール画像"/>              
               </>
             ) : (
-              <p>{userInfo.user}</p>  
-              
-              
+              <p>...loading</p>
             )}
             
         </ImageBloclk>
@@ -156,11 +153,11 @@ const UpLoad = () => {
           )}
 
         </div> */}
-      {imageUrl && (
+      {/* {imageUrl && (
         <div>
           <img width="400px" src={imageUrl} alt="uploaded" />
         </div>
-      )}
+      )} */}
         
         
       </UploadWrap>
