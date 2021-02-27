@@ -76,7 +76,7 @@ const UpLoad = () => {
       () => {
         upLoadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log("File available at", downloadURL);
-          setImageUrl(downloadURL);
+          setImage(downloadURL);
           firebase
             .firestore()
             .collection("image")
@@ -101,9 +101,11 @@ const UpLoad = () => {
         const userinfo = snapshot.docs.map((doc) => {
           return doc.data();
         });
-        setUserInfo(userinfo);
+        setImage(userinfo[0].url);
       });
   }, []);
+
+  console.log(image.url);
 
   return (
     <div>
@@ -112,11 +114,9 @@ const UpLoad = () => {
         <h1>upload</h1>
         {error && <div variant="danger">{error}</div>}
         <ImageBloclk>
-          {userInfo ? (
-            <img src={userInfo[0].url} alt="0番目の画像" />
-          ) : (
-            <p>loading</p>
-          )}
+
+          {image ? <img src={image} alt="0番目の画像" /> : <p>loading</p>}
+
         </ImageBloclk>
         <form onSubmit={onSubmit}>
           <input type="file" onChange={handleImage} />
@@ -139,13 +139,8 @@ const UpLoad = () => {
           ) : (
             <p>...loading</p>
           )}
-
         </div> */}
-        {imageUrl && (
-          <div>
-            <img width="400px" src={imageUrl} alt="uploaded" />
-          </div>
-        )}
+
       </UploadWrap>
       <Navigation />
     </div>
