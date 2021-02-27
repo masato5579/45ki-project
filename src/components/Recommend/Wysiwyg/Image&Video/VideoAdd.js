@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 import QueuePlayNextIcon from "@material-ui/icons/QueuePlayNext";
+import styled from "styled-components";
 
 const VideoAdd = (props) => {
   //動画のUrl
@@ -18,23 +19,33 @@ const VideoAdd = (props) => {
   };
 
   return (
-    <div>
+    <Container>
       <VideoLibraryIcon />
-      <input
-        type="text"
-        placeholder="paste the video url"
-        onChange={ChangeUrl}
-        value={url}
-      />
-      <Button
-        onClick={addVideo}
-        variant="contained"
-        startIcon={<QueuePlayNextIcon />}
-      >
-        埋め込む
-      </Button>
-    </div>
+      <VideoWrap>
+        <input
+          type="text"
+          placeholder="paste the video url"
+          onChange={ChangeUrl}
+          value={url}
+        />
+      </VideoWrap>
+      <ButtonWrap>
+        <Button
+          onClick={addVideo}
+          variant="contained"
+          startIcon={<QueuePlayNextIcon />}
+        >
+          埋め込む
+        </Button>
+      </ButtonWrap>
+    </Container>
   );
 };
 
 export default VideoAdd;
+
+const Container = styled.div``;
+
+const VideoWrap = styled.div``;
+
+const ButtonWrap = styled.div``;

@@ -54,11 +54,6 @@ const WysiwygCustom = (props) => {
   //editorに入力した文字
   const [editorState, setEditorState] = useState(createEditorStateWithText(""));
 
-  //Editorに挿入した画像
-  const [editorStateImg, setEditorStateImg] = useState(
-    createEditorStateWithText("")
-  );
-
   //Editorの開け閉め
   const toggleEditor = () => {
     setOpen(!open);
@@ -67,8 +62,30 @@ const WysiwygCustom = (props) => {
   //入力input用State
   const onChange = (editorState) => {
     setEditorState(editorState);
-    setEditorStateImg(editorState);
   };
+
+  //時間表示
+  let date = new Date();
+  const getStringFromDate = () => {
+    let year_str = date.getFullYear();
+    //月だけ+1すること
+    let month_str = 1 + date.getMonth();
+    let day_str = date.getDate();
+    let hour_str = date.getHours();
+    let minute_str = date.getMinutes();
+    let second_str = date.getSeconds();
+
+    let format_str = "YYYY/MM/DD hh:mm:ss";
+    format_str = format_str.replace(/YYYY/g, year_str);
+    format_str = format_str.replace(/MM/g, month_str);
+    format_str = format_str.replace(/DD/g, day_str);
+    format_str = format_str.replace(/hh/g, hour_str);
+    format_str = format_str.replace(/mm/g, minute_str);
+    format_str = format_str.replace(/ss/g, second_str);
+
+    return format_str;
+  };
+  let rtn_str = getStringFromDate(date);
 
   //firebaseからのデータを同期
   useEffect(() => {
@@ -95,14 +112,14 @@ const WysiwygCustom = (props) => {
     const editTag = document.querySelector(".edit");
     const editTagString = editTag.outerHTML; //htmlを文字列にする
     setEdit(
-      { content: editTagString, dates: String(new Date()) }[edit.length + 1]
+      { content: editTagString, dates: String(rtn_str) }[edit.length + 1]
     );
     firebase
       .firestore()
       .collection(userName)
       .add({
         content: editTagString,
-        dates: String(new Date()),
+        dates: String(rtn_str),
       });
     setOpen(!open);
     alert("記事が追加されました。");
@@ -149,7 +166,7 @@ const WysiwygCustom = (props) => {
             </div>
             <div>
               <ImageAdd
-                editorState={editorStateImg}
+                editorState={editorState}
                 onChange={onChange}
                 modifier={imagePlugin.addImage}
               />
@@ -201,7 +218,7 @@ const WysiwygCustom = (props) => {
         {edit ? (
           edit.map((ed) => (
             <div className="A" style={{ display: open ? "none" : "block" }}>
-              <div>{ed.dates}</div>
+              <div>更新日:{ed.dates}</div>
               <div dangerouslySetInnerHTML={{ __html: ed.content }}></div>
             </div>
           ))
@@ -235,9 +252,21 @@ const Head = styled.div`
 `;
 
 const Add = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+  div {
+    display: flex;
+    margin: 30px 0;
+    padding: 0 10px;
+    @media (max-width: 768px) {
+      margin: 10px 0;
+      width: 90%;
+    }
+  }
 `;
 
 const Edit = styled.div``;
