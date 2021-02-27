@@ -21,6 +21,8 @@ const UpLoad = () => {
   const [progress, setProgress] = useState(100);
   const [useName, setUserName] = useState("");
 
+  console.log(image);
+
   //画像が更新された時のイベント
   const handleImage = (event) => {
     const image = event.target.files[0];
@@ -112,7 +114,9 @@ const UpLoad = () => {
         <h1>upload</h1>
         {error && <div variant="danger">{error}</div>}
         <ImageBloclk>
+
           {image ? <img src={image} alt="0番目の画像" /> : <p>loading</p>}
+
         </ImageBloclk>
         <form onSubmit={onSubmit}>
           <input type="file" onChange={handleImage} />
@@ -136,6 +140,7 @@ const UpLoad = () => {
             <p>...loading</p>
           )}
         </div> */}
+
       </UploadWrap>
       <Navigation />
     </div>
