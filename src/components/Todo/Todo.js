@@ -60,11 +60,6 @@ font-size: 40px;
 width: 90%;
 margin: 0 auto;
 padding: 80px 0 0 0;
-height: 80vh;
-// background-color: red;
-
-
-
-
+height: 100vh;
 }
 `;

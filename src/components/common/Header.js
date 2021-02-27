@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
+import { Link } from "react-router-dom";
+
 //material-ui iconをインポート
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
@@ -39,7 +41,7 @@ export default function SimpleMenu() {
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>
-              ProfileEdit
+              <Link to="/UpLoad">ProfileEdit</Link>
               
               </MenuItem>
             <MenuItem onClick={handleClose}>Logout</MenuItem>

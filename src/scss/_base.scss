@@ -112,3 +112,11 @@ h1 {
 .headlineButton:focus {
   background: #f3f3f3;
 }
+
+input {
+  width: 100%;
+}
+
+input:focus{
+  outline: none;
+}

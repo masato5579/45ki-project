@@ -15,9 +15,11 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 const UpLoad = () => {
+  //画像
   const [image, setImage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
+  //プログレスバー
   const [progress, setProgress] = useState(100);
   const [useName, setUserName] = useState("");
 
@@ -25,7 +27,7 @@ const UpLoad = () => {
   const handleImage = (event) => {
     const image = event.target.files[0];
     setImage(image);
-    console.log(image);
+    console.log('ファイル選択された',image);
     setError("");
   };
 
@@ -48,11 +50,11 @@ const UpLoad = () => {
     // アップロード処理
     console.log("アップロード処理");
     //Firebase Storage の保存先とファイル名
-    const storageRef = storage.ref("images");
-    const imagesRef = storageRef.child(image.name); //ファイル名
+    const storageRef = storage.ref("images"); //storage.ref()でimages に保存
+    const imagesRef = storageRef.child(image.name); //images 配下に アップロードされたファイルの保存先 
 
     console.log("ファイルをアップする行為");
-    const upLoadTask = imagesRef.put(image);
+    const upLoadTask = imagesRef.put(image);//アップロードされたファイル
     console.log("タスク実行前");
 
     //upLoadTask 関数　でプログレスバーを表示
@@ -73,7 +75,7 @@ const UpLoad = () => {
 
       () => {
         upLoadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          console.log("File available at", downloadURL);
+          console.log("imagesRefに入った画像をアップ", downloadURL);
           setImageUrl(downloadURL);
           firebase
             .firestore()
@@ -94,14 +96,19 @@ const UpLoad = () => {
     firebase
       .firestore()
       .collection("image")
-      .orderBy("dates", "desc")
+      .orderBy("dates")
       .onSnapshot((snapshot) => {
         const userinfo = snapshot.docs.map((doc) => {
           return doc.data();
         });
+        console.log("userinfo",userinfo)
         setUserInfo(userinfo);
       });
   }, []);
+
+
+  console.lgo("userInfoの中身", userInfo.user)
+
 
   return (
     <div>
@@ -110,10 +117,18 @@ const UpLoad = () => {
       <h1>upload</h1>
         {error && <div variant="danger">{error}</div>}
         <ImageBloclk>
+        <p>{userInfo.user}</p>
+        
+          {/* /最新の画像がアップされたら最新に差し替えたい/ */}
+          
           {userInfo ? (
-              <img src={userInfo[0].url} alt="0番目の画像"/>
+              <>
+                <p>{userInfo[0].user}</p>
+                <img src={userInfo[48].url} alt="{userInfo.user}"/>              
+              </>
             ) : (
-              <p>loading</p>
+              <p>{userInfo.user}</p>  
+              
               
             )}
             

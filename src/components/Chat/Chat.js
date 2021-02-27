@@ -109,6 +109,7 @@ const MessageRow = styled.div`
   padding: 50px 0 0 0;
   height: 80vh;
   ul {
+    margin-left: 0;
     li {
       width: 100%;
       display: flex;

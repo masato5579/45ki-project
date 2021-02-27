@@ -1,10 +1,11 @@
 import React from 'react'
 import Item from './Item'
+import styled from 'styled-components';
 
 
 const List = ({ todos, deleteTodo }) => {
   return (
-    <ul>
+    <Wapper>
       {
         todos.map(todo => {
           return (
@@ -17,9 +18,13 @@ const List = ({ todos, deleteTodo }) => {
           )
         })
       }
-    </ul>
+    </Wapper>
   )
 }
 
 
 export default List
+
+const Wapper = styled.div`
+  margin-left: 0;
+`;
