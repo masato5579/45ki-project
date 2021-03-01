@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
-
 import firebase from "../../Firebase/firebase";
 import { AuthContext } from "../../Route/AuthService";
-
 import styled from 'styled-components';
+
+import Student from './Student';
 
 
 const Input = () => {
 
-  const [messages, setMessages] = useState(null);
+  const [albums, setAlbums] = useState(null);
 
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState("");
@@ -19,13 +19,13 @@ const Input = () => {
   useEffect(() => {
     firebase
       .firestore()
-      .collection("messages")
+      .collection("albums")
       .orderBy("dates")
       .onSnapshot((snapshot) => {
-        const messages = snapshot.docs.map((doc) => {
+        const albums = snapshot.docs.map((doc) => {
           return doc.data();
         });
-        setMessages(messages);
+        setAlbums(albums);
       });
   }, []);
 
@@ -34,45 +34,30 @@ const Input = () => {
     e.preventDefault();
     firebase
       .firestore()
-      .collection("messages")
+      .collection("albums")
       .add({
         content: value1,
+        content2: value2,
         user: user.displayName,
-        dates: String(new Date()),
+        dates: new Date(),
       });
     console.log(value1)
-    console.log(value2)
+    // console.log(value2)
   };
 
 
 return (
+  <>
   <InputDesign>
     <h1>入力インプット input.js</h1>
     <form onSubmit={handleSubmit}>
-      <input
-        type='text'
-        placeholder="氏名またはプロフィール"
-      />
       <textarea name="textarea" value={value1} onChange={(e) => setValue1(e.target.value)} style={{width: '100%', height: '90px'}} placeholder="授業の感想"></textarea>
       <textarea name="textarea" value={value2} onChange={(e) => setValue2(e.target.value)} style={{width: '100%', height: '90px'}} placeholder="今後の目標"></textarea>
       <button type="submit">保存</button>
     </form>
-    <ul>
-      {messages ? (
-        messages.map((message) => (
-          <li>
-            <user>
-              <img src="https://placehold.jp/80x80.png" />
-              <p>{message.user}</p>
-            </user>
-            <content>{message.content}</content>
-          </li>
-        ))
-      ) : (
-        <p>...loading</p>
-      )}
-    </ul>
   </InputDesign>
+  <Student albums={albums}/>
+  </>
 )
 };
 

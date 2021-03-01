@@ -14,17 +14,17 @@ const Item = ({ content, id, deleteTodo }) => {
   return (
     <Itemdesign>
       <li>
-          <input type='checkbox' onChange={() => {
-            setIsDone(!isDone)
-          }}/>
-          <span style={
-            {textDecoration: isDone ? 'line-through' : 'none'}
-          }>{content}</span>
-          <Button onClick={handleDelete}
-            variant="contained"
-            color="secondary"
-            startIcon={<DeleteIcon />}
-          >Delete</Button>
+        <input type='checkbox' onChange={() => {
+          setIsDone(!isDone)
+        }}/>
+        <span style={
+          {textDecoration: isDone ? 'line-through' : 'none'}
+        }>{content}</span>
+        <Button onClick={handleDelete}
+          variant="contained"
+          color="secondary"
+          startIcon={<DeleteIcon />}
+        >Delete</Button>
       </li>
     </Itemdesign>
   )

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
 import styled from 'styled-components';
 
 import Student from './Student';
 import Input from './Input';
+import { SettingsPhoneRounded } from '@material-ui/icons';
 
 const Album = () => {
 
@@ -15,10 +16,14 @@ const Album = () => {
     form_Button ++;
     if ((form_Button % 2) !== 0) {
       console.log("奇数の処理")
+      setDp("none");
     } else {
       console.log("偶数の処理")
+      setDp("block");
     }
   }
+
+  const [dp, setDp] = useState("none");
 
   return (
     <div className="wapper">
@@ -28,8 +33,9 @@ const Album = () => {
             <h1>卒業アルバム album.js</h1>
             <button id="form-button" onClick={handleClick}>追加</button>
           </div>
-          <Input id="input" />
-          <Student />
+          <div style={{display: dp}}>
+            <Input id="input" />
+          </div>
         </Layout>
       <Navigation />
     </div>
