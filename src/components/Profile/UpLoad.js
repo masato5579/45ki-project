@@ -32,10 +32,6 @@ const UpLoad = () => {
     setError("");
   };
 
-  // const handleName = (event) => {
-  //   const name = event.target.
-  // }
-
   const user = useContext(AuthContext);
   const onSubmit = (event) => {
     //ブラウザデフォルトの挙動を止める
@@ -122,8 +118,8 @@ const UpLoad = () => {
           </>
           {userInfo ? (
               <>
-                <p>{userInfo[0].id}</p>
-                <img src={userInfo[0].url} alt="プロフィール画像"/>              
+                <p>{userInfo.id}</p>
+                <img src={userInfo.url} alt="プロフィール画像"/>              
               </>
             ) : (
               <p>...loading</p>
