@@ -4,6 +4,8 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { Link } from "react-router-dom";
+import firebase from "../../Firebase/firebase";
 
 //material-ui iconをインポート
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -16,6 +18,10 @@ export default function SimpleMenu() {
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+    firebase.auth().signOut();
+  };
+  const handleClosePlofile = () => {
     setAnchorEl(null);
   };
 
@@ -38,10 +44,9 @@ export default function SimpleMenu() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>
-              ProfileEdit
-              
-              </MenuItem>
+            <MenuItem onClick={handleClosePlofile}>
+              <Link to="/UpLoad">ProfileEdit</Link>
+            </MenuItem>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
           </Menu>
         </li>

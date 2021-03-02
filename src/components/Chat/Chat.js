@@ -12,6 +12,7 @@ import styled from "styled-components";
 const Chat = () => {
   const [messages, setMessages] = useState(null);
   const [value, setValue] = useState("");
+  const [userimage, setUserImage] = useState("");
 
   //ユーザー情報
   const user = useContext(AuthContext);
@@ -28,25 +29,37 @@ const Chat = () => {
         });
         setMessages(messages);
       });
+    firebase
+      .firestore()
+      .collection(user.displayName)
+      .orderBy("dates")
+      .onSnapshot((snapshot) => {
+        const image = snapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        if (image.length === 0) {
+          setUserImage("");
+        } else {
+          setUserImage(image[0].url);
+        }
+      });
   }, []);
 
   //firebaseにcontentをadd
   const handleSubmit = (e) => {
     e.preventDefault();
     //未入力時のアラート
-    if (value === '') {
-      return alert('未入力です');
+    if (value === "") {
+      return alert("未入力です");
     }
-    firebase
-      .firestore()
-      .collection("messages")
-      .add({
-        content: value,
-        user: user.displayName,
-        dates: String(new Date()),
-      });
-      //入力後に初期化
-      setValue('')
+    firebase.firestore().collection("messages").add({
+      content: value,
+      user: user.displayName,
+      image: userimage,
+      dates: new Date(),
+    });
+    //入力後に初期化
+    setValue("");
   };
 
   return (
@@ -54,13 +67,13 @@ const Chat = () => {
       <Header />
       <MessageWrap>
         <MessageRow>
-        <h1>Caht APP</h1>
+          <h1>Caht APP</h1>
           <ul>
             {messages ? (
               messages.map((message) => (
                 <li>
                   <User>
-                    <img src="https://placehold.jp/80x80.png" />
+                    <img src={message.image} alt="sample" />
                     <p>{message.user}</p>
                   </User>
                   <Content>{message.content}</Content>
@@ -84,8 +97,7 @@ const Chat = () => {
             color="primary"
             endIcon={<SendIcon />}
             type="submit"
-          >
-          </Button>
+          ></Button>
         </Form>
       </FormWrap>
       <Navigation />
@@ -195,7 +207,7 @@ const Form = styled.form`
     padding: 10px;
     font-size: 20px;
     border-radius: 24px;
-    border: 1px solid #3e3e3e;    
+    border: 1px solid #3e3e3e;
   }
   button {
     min-width: 10% !important;

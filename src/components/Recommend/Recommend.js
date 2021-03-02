@@ -41,7 +41,7 @@ const Recommend = () => {
   };
 
   //Name
-  const Name = ["arai", "maehara", "sakadume"];
+  const Name = ["araiPage", "maeharaPage", "sakadumePage"];
 
   return (
     <>

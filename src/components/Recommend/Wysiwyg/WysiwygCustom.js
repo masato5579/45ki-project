@@ -29,9 +29,11 @@ import ImageAdd from "./Image&Video/ImageAdd";
 import "@draft-js-plugins/inline-toolbar/lib/plugin.css";
 import "../../../index.css";
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import CancelIcon from "@material-ui/icons/Cancel";
+import TextField from "@material-ui/core/TextField";
 
 const videoPlugin = createVideoPluguin();
 const imagePlugin = createImagePlugin();
@@ -39,11 +41,25 @@ const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [videoPlugin, imagePlugin, inlineToolbarPlugin];
 
+const useStyles = makeStyles((theme) => ({
+  title: {
+    width: "100%",
+    background: "#fff",
+  },
+}));
+
 const WysiwygCustom = (props) => {
+  //editorをfocusするためのRef
   const editor = useRef();
+
+  //makeStyleの適用
+  const classes = useStyles();
 
   //userの名前
   const userName = String(props.Name);
+
+  //おすすめのTitle
+  const [title, setTitle] = useState("");
 
   //エディターの開け閉め
   const [open, setOpen] = useState(false);
@@ -54,11 +70,6 @@ const WysiwygCustom = (props) => {
   //editorに入力した文字
   const [editorState, setEditorState] = useState(createEditorStateWithText(""));
 
-  //Editorに挿入した画像
-  const [editorStateImg, setEditorStateImg] = useState(
-    createEditorStateWithText("")
-  );
-
   //Editorの開け閉め
   const toggleEditor = () => {
     setOpen(!open);
@@ -67,8 +78,35 @@ const WysiwygCustom = (props) => {
   //入力input用State
   const onChange = (editorState) => {
     setEditorState(editorState);
-    setEditorStateImg(editorState);
   };
+
+  //Titleのinput用State
+  const onTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  //時間表示
+  let date = new Date();
+  const getStringFromDate = () => {
+    let year_str = date.getFullYear();
+    //月だけ+1すること
+    let month_str = 1 + date.getMonth();
+    let day_str = date.getDate();
+    let hour_str = date.getHours();
+    let minute_str = date.getMinutes();
+    let second_str = date.getSeconds();
+
+    let format_str = "YYYY/MM/DD hh:mm:ss";
+    format_str = format_str.replace(/YYYY/g, year_str);
+    format_str = format_str.replace(/MM/g, month_str);
+    format_str = format_str.replace(/DD/g, day_str);
+    format_str = format_str.replace(/hh/g, hour_str);
+    format_str = format_str.replace(/mm/g, minute_str);
+    format_str = format_str.replace(/ss/g, second_str);
+
+    return format_str;
+  };
+  let rtn_str = getStringFromDate(date);
 
   //firebaseからのデータを同期
   useEffect(() => {
@@ -81,13 +119,14 @@ const WysiwygCustom = (props) => {
           return doc.data();
         });
         const recs = rec.map((r) => {
+          const title = r.title;
           const content = r.content;
           const dates = r.dates;
-          return { content: content, dates: dates };
+          return { title: title, content: content, dates: dates };
         });
         setEdit(recs);
       });
-  }, []);
+  });
 
   //記事を保存
   const onSave = (e) => {
@@ -95,15 +134,13 @@ const WysiwygCustom = (props) => {
     const editTag = document.querySelector(".edit");
     const editTagString = editTag.outerHTML; //htmlを文字列にする
     setEdit(
-      { content: editTagString, dates: String(new Date()) }[edit.length + 1]
+      { title: title, content: editTagString, dates: rtn_str }[edit.length + 1]
     );
-    firebase
-      .firestore()
-      .collection(userName)
-      .add({
-        content: editTagString,
-        dates: String(new Date()),
-      });
+    firebase.firestore().collection(userName).add({
+      title: title,
+      content: editTagString,
+      dates: rtn_str,
+    });
     setOpen(!open);
     alert("記事が追加されました。");
   };
@@ -129,7 +166,15 @@ const WysiwygCustom = (props) => {
       <Wrap style={{ display: open ? "block" : "none" }}>
         <Row>
           <EditHead>
-            <h2>Title</h2>
+            <Field>
+              <TextField
+                onChange={onTitleChange}
+                id="filled-uncontrolled"
+                label="Title"
+                variant="outlined"
+                className={classes.title}
+              />
+            </Field>
             <Button
               variant="contained"
               color="primary"
@@ -149,7 +194,7 @@ const WysiwygCustom = (props) => {
             </div>
             <div>
               <ImageAdd
-                editorState={editorStateImg}
+                editorState={editorState}
                 onChange={onChange}
                 modifier={imagePlugin.addImage}
               />
@@ -201,7 +246,8 @@ const WysiwygCustom = (props) => {
         {edit ? (
           edit.map((ed) => (
             <div className="A" style={{ display: open ? "none" : "block" }}>
-              <div>{ed.dates}</div>
+              <h2>Title: {ed.title}</h2>
+              <div>更新日:{ed.dates}</div>
               <div dangerouslySetInnerHTML={{ __html: ed.content }}></div>
             </div>
           ))
@@ -217,6 +263,7 @@ export default WysiwygCustom;
 
 const Container = styled.div`
   z-index: 1;
+  padding-bottom: 30px;
 `;
 
 const Wrap = styled.div`
@@ -235,9 +282,26 @@ const Head = styled.div`
 `;
 
 const Add = styled.div`
-  width: 100%;
   display: flex;
   justify-content: flex-end;
+  width: 100%;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+  div {
+    display: flex;
+    margin: 30px 0;
+    padding: 0 10px;
+    @media (max-width: 768px) {
+      margin: 10px 0;
+      min-width: 120px;
+    }
+  }
+`;
+
+const Field = styled.div`
+  width: 60%;
 `;
 
 const Edit = styled.div``;
