@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Student from './Student';
 
 
-const Input = () => {
+const Input = ({setDp}) => {
 
   const [albums, setAlbums] = useState(null);
 
@@ -42,7 +42,8 @@ const Input = () => {
         dates: new Date(),
       });
     console.log(value1)
-    // console.log(value2)
+    console.log(value2)
+    setDp("none")
   };
 
 
