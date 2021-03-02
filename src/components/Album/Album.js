@@ -8,7 +8,6 @@ import { SettingsPhoneRounded } from '@material-ui/icons';
 
 import styled from 'styled-components';
 import Student from './Student';
-import Input from './Input';
 
 
 
@@ -61,6 +60,15 @@ const Album = () => {
   
   const [dp, setDp] = useState("none");
 
+  const handleDelete = () => {
+    firebase
+    .firestore()
+    .collection("albums")
+    .doc()
+    .delete()
+    console.log("削除機能")
+  };
+
   return (
     <div className="wapper">
       <Header />
@@ -82,7 +90,7 @@ const Album = () => {
             </form>
           </InputDesign>
         </div>
-          <Student albums={albums}/>
+          <Student albums={albums} handleDelete={handleDelete}/>
       </Layout>
       <Navigation />
     </div>
