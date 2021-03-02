@@ -134,18 +134,13 @@ const WysiwygCustom = (props) => {
     const editTag = document.querySelector(".edit");
     const editTagString = editTag.outerHTML; //htmlを文字列にする
     setEdit(
-      { title: title, content: editTagString, dates: String(rtn_str) }[
-        edit.length + 1
-      ]
+      { title: title, content: editTagString, dates: rtn_str }[edit.length + 1]
     );
-    firebase
-      .firestore()
-      .collection(userName)
-      .add({
-        title: title,
-        content: editTagString,
-        dates: String(rtn_str),
-      });
+    firebase.firestore().collection(userName).add({
+      title: title,
+      content: editTagString,
+      dates: rtn_str,
+    });
     setOpen(!open);
     alert("記事が追加されました。");
   };

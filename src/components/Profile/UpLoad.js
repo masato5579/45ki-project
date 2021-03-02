@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
@@ -16,12 +15,9 @@ import Box from "@material-ui/core/Box";
 
 const UpLoad = () => {
   const [image, setImage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+
   const [error, setError] = useState("");
   const [progress, setProgress] = useState(100);
-  const [useName, setUserName] = useState("");
-
-  console.log(image);
 
   //画像が更新された時のイベント
   const handleImage = (event) => {
@@ -30,10 +26,6 @@ const UpLoad = () => {
     console.log(image);
     setError("");
   };
-
-  // const handleName = (event) => {
-  //   const name = event.target.
-  // }
 
   const user = useContext(AuthContext);
   const onSubmit = (event) => {
@@ -77,35 +69,33 @@ const UpLoad = () => {
         upLoadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log("File available at", downloadURL);
           setImage(downloadURL);
-          firebase
-            .firestore()
-            .collection("image")
-            .add({
-              url: downloadURL,
-              user: user.displayName,
-              dates: String(new Date()),
-            });
+          firebase.firestore().collection(user.displayName).add({
+            url: downloadURL,
+            user: user.displayName,
+            dates: new Date(),
+          });
         });
       }
     );
   };
 
-  const [userInfo, setUserInfo] = useState("");
-
   useEffect(() => {
+    console.log(user.displayName);
     firebase
       .firestore()
-      .collection("image")
+      .collection(user.displayName)
       .orderBy("dates", "desc")
       .onSnapshot((snapshot) => {
         const userinfo = snapshot.docs.map((doc) => {
           return doc.data();
         });
-        setImage(userinfo[0].url);
+        if (userinfo.length === 0) {
+          setImage("");
+        } else {
+          setImage(userinfo[0].url);
+        }
       });
   }, []);
-
-  console.log(image.url);
 
   return (
     <div>
@@ -114,34 +104,18 @@ const UpLoad = () => {
         <h1>upload</h1>
         {error && <div variant="danger">{error}</div>}
         <ImageBloclk>
-
           {image ? <img src={image} alt="0番目の画像" /> : <p>loading</p>}
-
         </ImageBloclk>
         <form onSubmit={onSubmit}>
           <input type="file" onChange={handleImage} />
           <button onClick={onSubmit}>Upload</button>
         </form>
         {progress !== 100 && <LinearProgressWithLabel value={progress} />}
-        {/* {imageUrl && (
-          <div>
-            <img src={imageUrl} alt="uploaded" />
-          </div>
-        )} */}
-        {/* <div>
-          {userInfo ? (
-            userInfo.map((userinfo) => (
-              <div>
-                <p>{userinfo.user}</p>
-                <img src={userinfo.url} style={{ width: "200px" }} />
-              </div>
-            ))
-          ) : (
-            <p>...loading</p>
-          )}
-        </div> */}
-
+        <div>
+          <h2>user:{user.displayName}</h2>
+        </div>
       </UploadWrap>
+
       <Navigation />
     </div>
   );
