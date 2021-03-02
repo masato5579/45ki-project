@@ -12,6 +12,7 @@ import styled from "styled-components";
 const Chat = () => {
   const [messages, setMessages] = useState(null);
   const [value, setValue] = useState("");
+  const [userimage, setUserImage] = useState("");
 
   //ユーザー情報
   const user = useContext(AuthContext);
@@ -28,6 +29,20 @@ const Chat = () => {
         });
         setMessages(messages);
       });
+    firebase
+      .firestore()
+      .collection(user.displayName)
+      .orderBy("dates")
+      .onSnapshot((snapshot) => {
+        const image = snapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        if (image.length === 0) {
+          setUserImage("");
+        } else {
+          setUserImage(image[0].url);
+        }
+      });
   }, []);
 
   //firebaseにcontentをadd
@@ -37,14 +52,12 @@ const Chat = () => {
     if (value === "") {
       return alert("未入力です");
     }
-    firebase
-      .firestore()
-      .collection("messages")
-      .add({
-        content: value,
-        user: user.displayName,
-        dates: String(new Date()),
-      });
+    firebase.firestore().collection("messages").add({
+      content: value,
+      user: user.displayName,
+      image: userimage,
+      dates: new Date(),
+    });
     //入力後に初期化
     setValue("");
   };
@@ -60,7 +73,7 @@ const Chat = () => {
               messages.map((message) => (
                 <li>
                   <User>
-                    <img src="https://placehold.jp/80x80.png" alt="sample" />
+                    <img src={message.image} alt="sample" />
                     <p>{message.user}</p>
                   </User>
                   <Content>{message.content}</Content>
