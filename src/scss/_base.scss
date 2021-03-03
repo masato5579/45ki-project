@@ -112,3 +112,14 @@ h1 {
 .headlineButton:focus {
   background: #f3f3f3;
 }
+
+input{
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+.designHeadding {
+  font-family: 'Josefin Sans', cursive;
+}

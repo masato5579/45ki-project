@@ -34,7 +34,7 @@ const Login = ({ history }) => {
   return (
     <>
     <LoginWarpper>
-      <h1>Login</h1>
+      <p>Login Your Acount</p>
       <form onSubmit={handleSuibmit}>
         <InputlBlock>
           <input 
@@ -57,8 +57,9 @@ const Login = ({ history }) => {
               setPassword(e.target.value);
             }}
           />
-        </InputlBlock>        
         <BTM type="submit">Login</BTM>
+        </InputlBlock>        
+
       </form>
       </LoginWarpper>
     </>
@@ -68,30 +69,37 @@ const Login = ({ history }) => {
 export default Login;
 
 const LoginWarpper = styled.div`
-  padding: 30px 20px;
-  overflow: scroll;
-  margin: 100px 10px;
-  border: 1px solid #3e3e3e;
-  backgrouind: #000;
-  border-radius: 10px;
-
+  background-image: url("http://gahag.net/img/201511/12s/gahag-0024665000-1.jpg");
+  background-repeat: repeat-y;
+  height: 100vh;
+  p  {
+    padding : 90px 10px;
+    font-size: 2.5rem;
+    color: #fff;
+    text-align: center;
+  }
 `;
 
 const InputlBlock = styled.div`
+  margin: 0 10px;
   padding-bottom: 20px;
   input {
-    height: 40px; 
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent; /* 透過 */
+    color: #000000; /* 表示する文字色 */
   }
 `;
 
 const BTM = styled.button`
-  padding: 10px;
   width: 100%;
-  height: 50px;
-  margin: 0 auto;
-  display: block;
-  background-color: #000;
-  color: #fff;
-  font-weight: bold;
+  margin-top: 50px;
+  background-color: #fff;
   border: none;
+  border-radius: 10px;
+  height: 50px;
+  border: 1px solid #333;
 `;
