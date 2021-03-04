@@ -26,14 +26,15 @@ const SignUp = () => {
   return (
     <>
      <LoginWarpper>
-      <h1>SignUp</h1>
+     <p>SignUp</p>
       <form onSubmit={handleSubmit}>
         <InputlBlock>
           <input
+            className="siginName"
             type="Name"
             id="Name"
             name="Name"
-            placeholder="Name"
+            placeholder="Input Name"
             onChange={(e) => setName(e.target.value)}
           />
         </InputlBlock>
@@ -53,9 +54,9 @@ const SignUp = () => {
             name="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-          />
+          />        
+          <BTM type="submit">SignUp</BTM>
          </InputlBlock>
-        <BTM type="submit">SignUp</BTM>
       </form>
       </LoginWarpper>
     </>
@@ -64,31 +65,44 @@ const SignUp = () => {
 
 export default SignUp;
 
-const LoginWarpper = styled.div`
-  padding: 30px 20px;
-  overflow: scroll;
-  margin: 100px 10px;
-  border: 1px solid #3e3e3e;
-  backgrouind: #000;
-  border-radius: 10px;
 
+const LoginWarpper = styled.div`
+  background-image: url("http://gahag.net/img/201511/12s/gahag-0024665000-1.jpg");
+  background-repeat: repeat-y;
+  height: 100vh;
+  p  {
+    padding : 90px 10px;
+    font-size: 2.5rem;
+    color: #fff;
+    text-align: center;
+  }
 `;
 
 const InputlBlock = styled.div`
+  margin: 0 10px;
   padding-bottom: 20px;
   input {
-    height: 40px; 
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent; /* 透過 */
+    color: #000000; /* 表示する文字色 */
+  }
+  .siginName{
+    color:#fff;
+    font-size: 20px;
   }
 `;
 
 const BTM = styled.button`
-  padding: 10px;
   width: 100%;
-  height: 50px;
-  margin: 0 auto;
-  display: block;
-  background-color: #000;
-  color: #fff;
-  font-weight: bold;
+  margin-top: 50px;
+  background-color: #fff;
   border: none;
+  border-radius: 10px;
+  height: 50px;
+  border: 1px solid #333;
+
 `;
