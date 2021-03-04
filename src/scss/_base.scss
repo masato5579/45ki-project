@@ -1,8 +1,9 @@
 #root {
-  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
+  font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
+  color: #3e3e3e;
 }
 ul {
-  margin-left: 30px;
+  // margin-left: 30px;
 }
 
 ol {
@@ -54,10 +55,10 @@ h1 {
   font-size: 30px;
   color: #fff;
   font-weight: bold;
-  padding: 10px 0 10px 10px;
+  padding: 0px 0 40px 10px;
   margin-bottom: 20px;
-  background-color:rgba(0,32,54,0.5);
-  border-radius: 10px;
+  // background-color:rgba(0,32,54,0.5);
+  // border-radius: 10px;
 }
 
 
@@ -122,4 +123,8 @@ input{
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 .designHeadding {
   font-family: 'Josefin Sans', cursive;
+}
+
+.makeStyles-root-1 {
+  border-top: 0;
 }
