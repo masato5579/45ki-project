@@ -7,6 +7,7 @@ import { AuthContext } from "../../Route/AuthService";
 
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
+
 import styled from "styled-components";
 
 const Chat = () => {
@@ -111,22 +112,21 @@ export default Chat;
 const MessageWrap = styled.div`
   padding: 30px 0 0 0;
   overflow: scroll;
-  background-image: url("https://corriente.top/wp-content/uploads/2016/06/ios10-wallpaper.jpg");
+  background-image: url('https://www.pakutaso.com/shared/img/thumb/MIYAZAKIDSC_2274_TP_V.jpg');
+  oapcity: 0.5;
   height: 100vh;
 `;
 
 const MessageRow = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  padding: 50px 0 0 0;
-  height: 80vh;
+  padding: 50px 10px ;
+  background-color: rgba(128,128,128,0.5);
   ul {
     li {
       width: 100%;
       display: flex;
       align-items: center;
       // background: #303f9e;
-      margin-bottom: 50px;
+      margin-bottom: 25px;
       color: #fff;
       padding: 10px;
       border-radius: 10px;
@@ -136,19 +136,22 @@ const MessageRow = styled.div`
         p {
           position: absolute;
           top:0;
-          left: 60px;
+          left: 70px;
+          font-weight: bold;
         }
         + P {
           position: relative;
-          top:25px;
-          left: 0;
+          top:15px;
+          left: 8px;
           width: 100%;
           min-height: 40px;
           word-break: break-all;
           padding 10px;
           background-color: #fff;
           border-radius: 15px;
+          font-size: 0.9rem;
           color: #000;
+          box-shadow: 10px 10px 10px rgba(0,0,0,0.4);
           &:before  {
             content: "";
             position: absolute;
@@ -168,8 +171,11 @@ const MessageRow = styled.div`
 
 const User = styled.div`
   img {
-    border-radius: 50%;
-    width: 80%;
+    background-size: cover;
+    object-fit: cover;
+    border-radius: 35px;
+    width: 60px;
+    height: 60px;
   }
   p {
     text-align: center;
@@ -185,7 +191,8 @@ const FormWrap = styled.div`
   position: fixed;
   bottom: 53px;
   width: 100%;
-  background: #fff;
+  height: 50px;
+  background-color: rgba(0,0,0,0.8);
   boder-top: 1px solid #3e3e3e;
 `;
 
@@ -202,19 +209,17 @@ const Form = styled.form`
     width: 90%;
   }
   input {
-    width: 80%;
-    height: 45px;
-    padding: 10px;
+    width: 100%;
+    height: 30px;
+    padding: 0 10px;
     font-size: 20px;
     border-radius: 24px;
     border: 1px solid #3e3e3e;
   }
   button {
-    min-width: 10% !important;
-    font-size: 16px;
+    min-width: 30px;
     height: 40px;
-    @media (max-width: 768px) {
-      // width: 25%;
-    }
+    background: none;
+    padding: 0;
   }
 `;
