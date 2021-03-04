@@ -48,4 +48,10 @@ export default ImageAdd;
 
 const InputWrap = styled.div``;
 
-const ButtonWrap = styled.div``;
+const ButtonWrap = styled.div`
+  Button {
+    @media (max-width: 768px) {
+      font-size: 10px;
+    }
+  }
+`;

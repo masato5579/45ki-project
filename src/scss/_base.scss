@@ -1,5 +1,7 @@
 #root {
-  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro",
+    "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体",
+    "メイリオ", sans-serif;
 }
 ul {
   margin-left: 30px;
@@ -19,10 +21,6 @@ h2 {
 
 h3 {
   font-size: 20px;
-}
-
-.A .edit {
-  background: #ddd;
 }
 
 header {
@@ -56,10 +54,9 @@ h1 {
   font-weight: bold;
   padding: 10px 0 10px 10px;
   margin-bottom: 20px;
-  background-color:rgba(0,32,54,0.5);
+  background-color: rgba(0, 32, 54, 0.5);
   border-radius: 10px;
 }
-
 
 .wapper {
   min-height: 100vh;

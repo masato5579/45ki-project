@@ -46,4 +46,8 @@ export default VideoAdd;
 
 const VideoWrap = styled.div``;
 
-const ButtonWrap = styled.div``;
+const ButtonWrap = styled.div`
+  Button {
+    font-size: 10px;
+  }
+`;

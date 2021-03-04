@@ -1,0 +1,54 @@
+$res: 768px; //responsive
+
+@mixin res {
+  @media (max-width: ($res)) {
+    @content;
+  }
+}
+
+.article {
+  background: #ddd;
+  box-shadow: 12px 12px#333333;
+  .articleTitles {
+    padding: 10px;
+    .articleTitle {
+      background: #fff;
+      padding: 10px;
+    }
+  }
+  .edit {
+    background: #fff;
+  }
+}
+
+.articleUpdatedate {
+  padding: 10px;
+  font-weight: bold;
+}
+
+.myh1 {
+  background: #f60257;
+  color: #000;
+  font-size: 30px;
+  @include res {
+    font-size: 22px;
+  }
+}
+
+.myh2 {
+  background: #fff;
+  color: #000;
+  font-size: 25px;
+  @include res {
+    font-size: 20px;
+  }
+}
+
+.myh3 {
+  background: #fff;
+  color: #000;
+  font-size: 22px;
+  @include res {
+    font-size: 18px;
+  }
+}
