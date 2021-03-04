@@ -46,6 +46,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     background: "#fff",
   },
+  addbutton: {
+    height: "65px",
+  },
+  savebutton: {
+    padding: "15px 50px",
+  },
 }));
 
 const WysiwygCustom = (props) => {
@@ -150,15 +156,30 @@ const WysiwygCustom = (props) => {
     editor.current.focus();
   };
 
+  function myBlockStyleFn(contentBlock) {
+    const type = contentBlock.getType();
+    console.log(type);
+    if (type === "header-one") {
+      return "myh1";
+    }
+    if (type === "header-two") {
+      return "myh2";
+    }
+    if (type === "header-three") {
+      return "myh3";
+    }
+  }
+
   return (
     <Container>
       <Head>
-        <h1>おすすめ</h1>
+        <Title>おすすめ</Title>
         <Button
           variant="contained"
           color="secondary"
           startIcon={<AddToPhotosIcon />}
           onClick={toggleEditor}
+          className={classes.addbutton}
         >
           おすすめを追加
         </Button>
@@ -181,7 +202,7 @@ const WysiwygCustom = (props) => {
               startIcon={<CancelIcon />}
               onClick={toggleEditor}
             >
-              エディターを閉じる
+              閉じる
             </Button>
           </EditHead>
           <Add>
@@ -208,7 +229,8 @@ const WysiwygCustom = (props) => {
               ref={(element) => {
                 editor.current = element;
               }}
-              placeholder="ここに記事を入力できるよ"
+              placeholder="文字を入力してね...."
+              blockStyleFn={myBlockStyleFn}
             />
             <InlineToolbar>
               {(externalProps) => (
@@ -235,6 +257,7 @@ const WysiwygCustom = (props) => {
                 variant="contained"
                 color="secondary"
                 startIcon={<AddToPhotosIcon />}
+                className={classes.savebutton}
               >
                 保存する
               </Button>
@@ -245,9 +268,14 @@ const WysiwygCustom = (props) => {
       <Ul>
         {edit ? (
           edit.map((ed) => (
-            <div className="A" style={{ display: open ? "none" : "block" }}>
-              <h2>Title: {ed.title}</h2>
-              <div>更新日:{ed.dates}</div>
+            <div
+              className="article"
+              style={{ display: open ? "none" : "block" }}
+            >
+              <h2 className="articleTitles">
+                Title <div className="articleTitle">{ed.title}</div>
+              </h2>
+              <div className="articleUpdatedate">更新日:{ed.dates}</div>
               <div dangerouslySetInnerHTML={{ __html: ed.content }}></div>
             </div>
           ))
@@ -279,12 +307,19 @@ const Wrap = styled.div`
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const Add = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
+  background: #f3ffe5;
+  margin-bottom: 10px;
+  padding: 0;
   @media (max-width: 768px) {
     flex-direction: column;
     width: 100%;
@@ -300,6 +335,14 @@ const Add = styled.div`
   }
 `;
 
+const Title = styled.h1`
+  padding: 10px;
+  @media (max-width: 768px) {
+    font-size: 20px;
+    text-align: center;
+  }
+`;
+
 const Field = styled.div`
   width: 60%;
 `;
@@ -310,6 +353,14 @@ const EditHead = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+  TextField {
+    width: 50%;
+  }
+  Botton {
+    @media (max-width: 768px) {
+      width: 10%;
+    }
+  }
 `;
 
 const ButtonWrap = styled.div`
@@ -317,7 +368,9 @@ const ButtonWrap = styled.div`
 `;
 
 const Row = styled.div`
-  background: #ccffff;
+  background-image: url("https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171__480.jpg");
+  background-repeat: repeat-y;
+  background-size: contain;
   padding: 80px 5%;
   width: 100%;
   margin: 0 auto;

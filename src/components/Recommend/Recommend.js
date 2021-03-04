@@ -9,6 +9,8 @@ import Nav from "../common/Navigation";
 import ThePannel from "./TabPannel";
 import WysiwygCustom from "./Wysiwyg/WysiwygCustom";
 
+import styled from "styled-components";
+
 const useStyle = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -44,7 +46,7 @@ const Recommend = () => {
   const Name = ["araiPage", "maeharaPage", "sakadumePage"];
 
   return (
-    <>
+    <Container>
       <Header />
       <Paper>
         <Tabs
@@ -70,8 +72,12 @@ const Recommend = () => {
         <WysiwygCustom Name={Name[2]} />
       </ThePannel>
       <Nav />
-    </>
+    </Container>
   );
 };
 
 export default Recommend;
+
+const Container = styled.div`
+  background-image: url("https://cdn.pixabay.com/photo/2016/04/15/04/02/water-1330252_1280.jpg");
+`;

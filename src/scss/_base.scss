@@ -1,6 +1,12 @@
 #root {
+<<<<<<< HEAD
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro",
+    "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体",
+    "メイリオ", sans-serif;
+=======
   font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
   color: #3e3e3e;
+>>>>>>> 43366ac875e0c07f25c160a474186edcf9d81468
 }
 ul {
   // margin-left: 30px;
@@ -20,10 +26,6 @@ h2 {
 
 h3 {
   font-size: 20px;
-}
-
-.A .edit {
-  background: #ddd;
 }
 
 header {
@@ -57,10 +59,14 @@ h1 {
   font-weight: bold;
   padding: 0px 0 40px 10px;
   margin-bottom: 20px;
+<<<<<<< HEAD
+  background-color: rgba(0, 32, 54, 0.5);
+  border-radius: 10px;
+=======
   // background-color:rgba(0,32,54,0.5);
   // border-radius: 10px;
+>>>>>>> 43366ac875e0c07f25c160a474186edcf9d81468
 }
-
 
 .wapper {
   min-height: 100vh;
@@ -113,6 +119,8 @@ h1 {
 .headlineButton:focus {
   background: #f3f3f3;
 }
+<<<<<<< HEAD
+=======
 
 input{
   &:focus {
@@ -128,3 +136,4 @@ input{
 .makeStyles-root-1 {
   border-top: 0;
 }
+>>>>>>> 43366ac875e0c07f25c160a474186edcf9d81468
