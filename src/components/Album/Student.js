@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 
+
 const Student = ({albums, handleDelete}) => {
 
   return (
@@ -11,10 +12,10 @@ const Student = ({albums, handleDelete}) => {
       {albums ? (
         albums.map((album) => (
           <li>
-            <user>
+            <User>
               <img src="https://placehold.jp/80x80.png" />
               <p>{album.user}</p>
-            </user>
+            </User>
             <div id="content_text">
               <h1>授業の感想</h1>
               <content>{album.content}</content>
@@ -49,4 +50,8 @@ li {
 } h1 {
   font-size: 20px;
 }
+`;
+
+const User = styled.div`
+  
 `;

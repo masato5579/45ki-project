@@ -26,8 +26,11 @@ const Album = () => {
     .collection("albums")
     .orderBy("dates")
     .onSnapshot((snapshot) => {
-      const albums = snapshot.docs.map((doc) => {
-        return doc.data();
+      const albums = snapshot.docs.map(doc => {
+        return {
+          docid:doc.id,
+          ...doc.data()
+        }
       });
       setAlbums(albums);
     });
@@ -60,13 +63,9 @@ const Album = () => {
   
   const [dp, setDp] = useState("none");
 
-  const handleDelete = () => {
-    firebase
-    .firestore()
-    .collection("albums")
-    .doc()
-    .delete()
-    console.log("削除機能")
+  const handleDelete = (docid) => {
+    console.log(docid)
+    console.log("ボタンクリックの処理")
   };
 
   return (
