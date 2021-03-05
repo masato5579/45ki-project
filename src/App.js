@@ -2,6 +2,7 @@ import React from "react";
 import Room from "./components/Room";
 import Chat from "./components/Chat/Chat";
 import Todo from "./components/Todo/Todo";
+import Album from "./components/Album/Album";
 
 import UpLoad from "./components/Profile/UpLoad";
 import Login from "./Entrance/Login";
@@ -22,8 +23,9 @@ const App = () => {
           <LoggedInRoute path="/Chat" component={Chat} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
-          <LoggedInRoute exact path="/UpLoad" component={UpLoad} />
           <Route exact path="/Todo" component={Todo} />
+          <Route exact path="/Album" component={Album} />
+          <LoggedInRoute exact path="/UpLoad" component={UpLoad} />
           <Route exact path="/Recommend" component={Recommend} />
         </Switch>
       </Router>

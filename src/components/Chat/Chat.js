@@ -68,7 +68,7 @@ const Chat = () => {
       <Header />
       <MessageWrap>
         <MessageRow>
-          <h1>Caht APP</h1>
+          <h1>Chat APP</h1>
           <ul>
             {messages ? (
               messages.map((message) => (
