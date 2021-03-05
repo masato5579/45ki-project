@@ -4,8 +4,6 @@ import firebase from "../../Firebase/firebase";
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
 
-import { SettingsPhoneRounded } from '@material-ui/icons';
-
 import styled from 'styled-components';
 import Student from './Student';
 
@@ -64,8 +62,11 @@ const Album = () => {
   const [dp, setDp] = useState("none");
 
   const handleDelete = (docid) => {
-    console.log(docid)
-    console.log("ボタンクリックの処理")
+    firebase
+    .firestore()
+    .collection("albums")
+    .doc(docid)
+    .delete()
   };
 
   return (
@@ -74,14 +75,16 @@ const Album = () => {
       <Layout>
         <AlbumDesign>
           <div class="top">
-            <h1>卒業アルバム album.js</h1>
-            <button id="form-button" onClick={handleClick}>追加</button>
-            <button onClick={close}>閉じる</button>
+            <h1>卒業アルバム</h1>
+            <div>
+              <button id="form-button" onClick={handleClick}>追加</button>
+              <button onClick={close}>閉じる</button>
+            </div>
           </div>
         </AlbumDesign>
         <div style={{display: dp}}>
           <InputDesign>
-            <h1>入力インプット input.js</h1>
+            <h1>感想・目標の入力！</h1>
             <form onSubmit={handleSubmit}>
               <textarea name="textarea" value={value1} onChange={(e) => setValue1(e.target.value)} style={{width: '100%', height: '90px'}} placeholder="授業の感想"></textarea>
               <textarea name="textarea" value={value2} onChange={(e) => setValue2(e.target.value)} style={{width: '100%', height: '90px'}} placeholder="今後の目標"></textarea>
@@ -89,7 +92,7 @@ const Album = () => {
             </form>
           </InputDesign>
         </div>
-          <Student albums={albums} handleDelete={handleDelete}/>
+          <Student albums={albums} handleDelete={handleDelete} />
       </Layout>
       <Navigation />
     </div>
@@ -99,22 +102,34 @@ const Album = () => {
 export default Album;
 
 const Layout = styled.div`
-  padding-top: 80px;
+  padding-bottom: 60px;
 `;
 
 const AlbumDesign = styled.div`
-margin: 0 10px;
-// padding-top: 65px;
-background-color: #CCFFFF;
+padding: 80px 10px 10px 10px;
+background-color: #dc8ba7;
 .top {
   display: flex;
   justify-content:space-between;
   font-size: 20px;
+  align-items: center;
+h1 {
+  color: black;
+  font-size: 1.5em;
+}
+}
+button {
+  margin: 0 5px;
 }
 `;
 
 const InputDesign = styled.div`
-background-color: #CCFFCC;
+background-color: #FFCCFF;
+h1 {
+  padding: 15px;
+  font-size: 1.5em;
+  text-align: center;
+}
 form {
   width: 60%;
   margin: 0 auto;
