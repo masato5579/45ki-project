@@ -12,6 +12,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./Route/AuthService";
 
 import LoggedInRoute from "./Route/LoggedInRoute";
+import Recommend from "./components/Recommend/Recommend";
 
 const App = () => {
   return (
@@ -22,9 +23,10 @@ const App = () => {
           <LoggedInRoute path="/Chat" component={Chat} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/UpLoad" component={UpLoad} />
           <Route exact path="/Todo" component={Todo} />
           <Route exact path="/Album" component={Album} />
+          <LoggedInRoute exact path="/UpLoad" component={UpLoad} />
+          <Route exact path="/Recommend" component={Recommend} />
         </Switch>
       </Router>
     </AuthProvider>

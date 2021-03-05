@@ -1,3 +1,32 @@
+#root {
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro",
+    "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体",
+    "メイリオ", sans-serif;
+  font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+    "Hiragino Maru Gothic Pro", "ヒラギノ角ゴ Pro W3",
+    "Hiragino Kaku Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
+  color: #3e3e3e;
+}
+ul {
+  // margin-left: 30px;
+}
+
+ol {
+  margin-left: 30px;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
 header {
   background: #000;
   color: #fff;
@@ -5,9 +34,14 @@ header {
   padding: 1%;
   position: fixed;
   width: 100%;
+  z-index: 99;
   ul {
     display: flex;
     align-items: center;
+    margin-left: 0;
+    li {
+      list-style: none;
+    }
     li:first-child {
       margin-right: auto;
       padding-left: 3%;
@@ -18,10 +52,23 @@ header {
   }
 }
 
+h1 {
+  font-size: 30px;
+  color: #fff;
+  font-weight: bold;
+  padding: 0px 0 40px 10px;
+  margin-bottom: 20px;
+  background-color: rgba(0, 32, 54, 0.5);
+  border-radius: 10px;
+  // background-color:rgba(0,32,54,0.5);
+  // border-radius: 10px;
+}
+
 .wapper {
   min-height: 100vh;
   position: relative; /*←相対位置*/
 }
+
 //Navigation style
 .makeStyles-root-1 {
   width: 100% !important;
@@ -32,4 +79,54 @@ header {
 .MuiBottomNavigationAction-root.Mui-selected {
   color: #fff !important;
   background: #000;
+}
+
+.editor {
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  cursor: text;
+  padding: 16px;
+  border-radius: 2px;
+  margin-bottom: 2em;
+  box-shadow: inset 0px 1px 8px -3px #ababab;
+  background: #fefefe;
+}
+
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
+}
+
+.headlineButtonWrapper {
+  display: inline-block;
+}
+
+.headlineButton {
+  background: #fbfbfb;
+  color: #888;
+  font-size: 18px;
+  border: 0;
+  padding-top: 5px;
+  vertical-align: bottom;
+  height: 34px;
+  width: 36px;
+}
+
+.headlineButton:hover,
+.headlineButton:focus {
+  background: #f3f3f3;
+}
+
+input {
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+.designHeadding {
+  font-family: "Josefin Sans", cursive;
+}
+
+.makeStyles-root-1 {
+  border-top: 0;
 }

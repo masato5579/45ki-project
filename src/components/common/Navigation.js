@@ -14,8 +14,9 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    width: 500,
+    width: "100%",
     position: "fixed",
+    bottom: "0",
   },
 });
 
@@ -50,7 +51,12 @@ export default function SimpleBottomNavigation() {
         component={Link}
         to="/Album"
       />
-      <BottomNavigationAction label="Recommend" icon={<ThumbUpAltIcon />} />
+      <BottomNavigationAction
+        label="Recommend"
+        icon={<ThumbUpAltIcon />}
+        component={Link}
+        to="/Recommend"
+      />
     </BottomNavigation>
   );
 }
