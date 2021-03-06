@@ -44,7 +44,7 @@ const Album = () => {
           setUserImage(image[0].url);
         }
       });
-  }, []);
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
