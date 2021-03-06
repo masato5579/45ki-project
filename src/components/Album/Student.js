@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -7,7 +8,7 @@ const Student = ({albums, handleDelete}) => {
 
   return (
     <Container>
-      <h1>卒業生のコメント</h1>
+      <h2>卒業生のコメント</h2>
       <ul>
       {albums ? (
         albums.map((album) => (
@@ -17,15 +18,15 @@ const Student = ({albums, handleDelete}) => {
               <p>{album.user}</p>
             </User>
             <div id="content_text">
-              <h1>授業の感想</h1>
+              <h2>授業の感想</h2>
               <content>{album.content}</content>
             </div>
             <div id="content_text">
-              <h1>今後の目標</h1>
+              <h2>今後の目標</h2>
               <content>{album.content2}</content>
             </div>
             <div class='deletebutton'>
-              <button onClick={()=>handleDelete(album.docid)}>削除</button>
+              <Button onClick={()=>handleDelete(album.docid)}>削除</Button>
             </div>
           </Li>
         ))
@@ -41,8 +42,9 @@ export default Student;
 
 const Container = styled.div`
 // background-color: #FFCCFF;
-h1 {
+h2 {
   font-size: 1.5em;
+  font-weight: bold;
   text-align: center;
   padding: 6% 3% 0% 3%;
 }
@@ -57,8 +59,9 @@ const Li = styled.div`
   width: 30%;
   margin: 10px;
   padding: 1%;
-  background-color: #dc8ba7;
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 1em;
+  box-shadow: 0 0 8px black;
   text-align: center;
   content {
     width: 100%;
@@ -73,7 +76,8 @@ const Li = styled.div`
 }
 #content_text {
   margin: 10px 0;
-} h1 {
+} h2 {
+  color: ;
   font-size: 20px;
   border-bottom: thin solid;
   align-items: center;
@@ -86,6 +90,7 @@ const Li = styled.div`
 
 const User = styled.div`
   text-align: center;
+  color: ;
   img {
     border-radius: 3em;
   }

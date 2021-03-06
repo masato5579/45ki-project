@@ -5,6 +5,7 @@ import Header from "../common/Header";
 import Navigation from "../common/Navigation";
 
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
 import Student from './Student';
 
 
@@ -17,6 +18,7 @@ const Album = () => {
   const [value2, setValue2] = useState("");
 
   const user = useContext(AuthContext);
+
   
   useEffect(() => {
     firebase
@@ -75,20 +77,20 @@ const Album = () => {
       <Layout>
         <AlbumDesign>
           <div class="top">
-            <h1>卒業アルバム</h1>
+            <h2>卒業アルバム</h2>
             <div>
-              <button id="form-button" onClick={handleClick}>追加</button>
-              <button onClick={close}>閉じる</button>
+              <Button variant="contained" id="form-button" onClick={handleClick}>追加</Button>
+              <Button variant="contained" onClick={close}>閉じる</Button>
             </div>
           </div>
         </AlbumDesign>
         <div style={{display: dp}}>
           <InputDesign>
-            <h1>感想・目標の入力！</h1>
+            <h2>感想・目標の入力！</h2>
             <form onSubmit={handleSubmit}>
               <textarea name="textarea" value={value1} onChange={(e) => setValue1(e.target.value)} style={{width: '100%', height: '90px'}} placeholder="授業の感想"></textarea>
               <textarea name="textarea" value={value2} onChange={(e) => setValue2(e.target.value)} style={{width: '100%', height: '90px'}} placeholder="今後の目標"></textarea>
-              <button type="submit">保存</button>
+              <Button variant="contained" type="submit">保存</Button>
             </form>
           </InputDesign>
         </div>
@@ -99,35 +101,42 @@ const Album = () => {
   );
 };
 
+
 export default Album;
 
 const Layout = styled.div`
+  background-image: url('https://beiz.jp/images_P/sky/sky_00028.jpg');
+  height: 100vh;
+  overflow: scroll;
   padding-bottom: 60px;
 `;
 
 const AlbumDesign = styled.div`
 padding: 80px 10px 10px 10px;
-background-color: #dc8ba7;
 .top {
   display: flex;
   justify-content:space-between;
   font-size: 20px;
   align-items: center;
-h1 {
-  color: black;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 1em;
+  padding: 2%;
+h2 {
+  color: rgb(210, 210, 210);
   font-size: 1.5em;
 }
 }
-button {
+Button {
   margin: 0 5px;
 }
 `;
 
 const InputDesign = styled.div`
-background-color: #FFCCFF;
-h1 {
+background-color: rgba(0, 0, 0, 0.4);
+h2 {
   padding: 15px;
   font-size: 1.5em;
+  color: rgb(210, 210, 210);
   text-align: center;
 }
 form {

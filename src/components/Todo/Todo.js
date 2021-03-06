@@ -31,7 +31,6 @@ const Todo = () => {
       <Header />
         <Container>
           <h1>Todoの作成</h1>
-
           <List todos={todos} deleteTodo={deleteTodo} />
         </Container>
         <FormWrap>
