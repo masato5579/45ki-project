@@ -23,10 +23,10 @@ const App = () => {
           <LoggedInRoute path="/Chat" component={Chat} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/Todo" component={Todo} />
-          <Route exact path="/Album" component={Album} />
+          <LoggedInRoute exact path="/Todo" component={Todo} />
+          <LoggedInRoute exact path="/Album" component={Album} />
           <LoggedInRoute exact path="/UpLoad" component={UpLoad} />
-          <Route exact path="/Recommend" component={Recommend} />
+          <LoggedInRoute exact path="/Recommend" component={Recommend} />
         </Switch>
       </Router>
     </AuthProvider>
