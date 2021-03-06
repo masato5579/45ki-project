@@ -13,6 +13,7 @@ const EditorHead = ({ onTitleChange, toggleEditor }) => {
           id="filled-uncontrolled"
           label="Title"
           variant="outlined"
+          fullWidth
         />
       </Field>
       <Button
@@ -45,8 +46,5 @@ const Container = styled.div`
 
 const Field = styled.div`
   width: 60%;
-  TextField {
-    width: 100%;
-    background: #fff;
-  }
+  background: #fff;
 `;

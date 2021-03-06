@@ -106,13 +106,17 @@ const WysiwygCustom = (props) => {
       .orderBy("dates", "desc")
       .onSnapshot((snapshot) => {
         const rec = snapshot.docs.map((doc) => {
-          return doc.data();
+          return {
+            docid: doc.id,
+            ...doc.data(),
+          };
         });
         const recs = rec.map((r) => {
+          const docid = r.docid;
           const title = r.title;
           const content = r.content;
           const dates = r.dates;
-          return { title: title, content: content, dates: dates };
+          return { docid: docid, title: title, content: content, dates: dates };
         });
         setEdit(recs);
       });
@@ -134,6 +138,10 @@ const WysiwygCustom = (props) => {
     });
     setOpen(!open);
     alert("記事が追加されました。");
+  };
+
+  const deleteArticle = (docid) => {
+    firebase.firestore().collection(userName).doc(docid).delete();
   };
 
   //editorにfocus
@@ -212,7 +220,7 @@ const WysiwygCustom = (props) => {
           <SaveButton onSave={onSave} />
         </Row>
       </Wrap>
-      <Article edit={edit} open={open} />
+      <Article edit={edit} open={open} deleteArticle={deleteArticle} />
     </Container>
   );
 };
