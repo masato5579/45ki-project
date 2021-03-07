@@ -48,7 +48,6 @@ const FormWrap = styled.div`
     display: flex;
     justify-content: space-between;
     -webkit-justify-content: space-between;
-
   }
   input {
     width: 80%;
