@@ -120,7 +120,7 @@ const MessageWrap = styled.div`
 `;
 
 const MessageRow = styled.div`
-  padding: 50px 10px ;
+  padding: 50px 10px 105px;
   background-color: rgba(128,128,128,0.5);
   ul {
     li {
