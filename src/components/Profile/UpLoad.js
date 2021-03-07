@@ -101,21 +101,22 @@ const UpLoad = () => {
     <div>
       <Header />
       <UploadWrap>
-        <h1>upload</h1>
+      <ContentWarpper>
+        <h1>Image Upload</h1>
         {error && <div variant="danger">{error}</div>}
         <ImageBloclk>
           {image ? <img src={image} alt="0番目の画像" /> : <p>loading</p>}
+          <div>
+          <UserName>{user.displayName}</UserName>
+        </div>
         </ImageBloclk>
         <form onSubmit={onSubmit}>
           <input type="file" onChange={handleImage} />
           <button onClick={onSubmit}>Upload</button>
         </form>
         {progress !== 100 && <LinearProgressWithLabel value={progress} />}
-        <div>
-          <h2>user:{user.displayName}</h2>
-        </div>
+        </ContentWarpper>
       </UploadWrap>
-
       <Navigation />
     </div>
   );
@@ -136,11 +137,18 @@ function LinearProgressWithLabel(props) {
   );
 }
 export default UpLoad;
-
 const UploadWrap = styled.div`
-  padding: 80px 20px;
-  margin: 0 auto;
-  height: 100vh;
+
+background-image: url("https://images.alphacoders.com/291/thumb-1920-291093.jpg");
+background-position: 0 -250px;
+background-repeat: repeat-y;
+height: 100vh;
+`;
+
+const ContentWarpper = styled.div`
+padding: 80px 10px ;
+background-color: rgba(128,128,128,0.5);
+height: 100vh;
   img {
     width: 100px;
     height: 100px;
@@ -151,7 +159,11 @@ const UploadWrap = styled.div`
     border: 1px solid #3e3e3e;
   }
 `;
-
 const ImageBloclk = styled.div`
   display: block;
+  margin-bottom: 50px;
+`;
+const UserName = styled.div`
+text-align: center;
+  margin: 20px;
 `;

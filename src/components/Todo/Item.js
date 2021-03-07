@@ -44,13 +44,13 @@ const Itemdesign = styled.div`
     border:0px solid #000;
 
     input {
-      transform: scale(2);
+      transform: scale(1.5);
       margin: auto 10px;
       width: auto;
     }
     span {
       width: 100%;
-      font-size: 20px;
+      font-size: 16px;
       margin: auto 10px;
       word-break: break-all;
     }

@@ -31,7 +31,6 @@ const Todo = () => {
       <Header />
         <Container>
           <h1>Todoの作成</h1>
-
           <List todos={todos} deleteTodo={deleteTodo} />
         </Container>
         <FormWrap>
@@ -56,11 +55,10 @@ const FormWrap = styled.div`
 `;
 
 const Container = styled.div`
-font-size: 40px;
-width: 90%;
 margin: 0 auto;
-padding: 80px 0 0 0;
-height: 80vh;
+padding: 80px 10px 0;
+background-color: rgba(128,128,128,0.5);
+height: 100vh;
 // background-color: red;
 
 
