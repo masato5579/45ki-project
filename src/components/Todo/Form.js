@@ -8,7 +8,7 @@ const Form = ({ handleSubmit, value, setValue } ) => {
 
   return (
     <FormWrap>
-    <form onSubmit={handleSubmit}>
+    <FormA onSubmit={handleSubmit}>
       <input
         type='text'
         value={value}
@@ -18,6 +18,7 @@ const Form = ({ handleSubmit, value, setValue } ) => {
         }}
       />
       <Button
+        className="MuiRestBtn"
         type='text'
         variant="contained"
         color="primary"        
@@ -27,7 +28,7 @@ const Form = ({ handleSubmit, value, setValue } ) => {
         }}
       >
       </Button>      
-    </form>
+    </FormA>
     </FormWrap>
   )
 }
@@ -39,31 +40,35 @@ const FormWrap = styled.div`
   position: fixed;
   bottom: 53px;
   width: 100%;
-  background: #fff;
+  height: 50px;
+  background-color: rgba(0,0,0,0.8);
   boder-top: 1px solid #3e3e3e;
-  form {
+`;
+
+const FormA = styled.form`
+  width: 40%;
+  height: 100%;
+  padding: 10px 0 12px 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  @media (max-width: 768px) {
     width: 90%;
-    padding: 10px 0 12px 0;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    -webkit-justify-content: space-between;
   }
   input {
-    width: 80%;
-    height: 45px;
-    padding: 10px;
-    font-size: 20px;
+    width: 100%;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 16px;
     border-radius: 24px;
     border: 1px solid #3e3e3e;
   }
   button {
-    min-width: 10% !important;
-    font-size: 16px;
-    min-width: 60px;
-    @media (max-width: 768px) {
-      // width: 25%;
-    }
-  }  
-
+    min-width: 30px;
+    height: 40px;
+    background: none;
+    padding: 0;
+  }
 `;
