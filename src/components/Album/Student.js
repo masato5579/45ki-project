@@ -4,38 +4,40 @@ import Button from '@material-ui/core/Button';
 
 
 
-const Student = ({albums, handleDelete}) => {
 
+const Student = ({ albums, handleDelete }) => {
   return (
     <Container>
       <h2>卒業生のコメント</h2>
       <ul>
-      {albums ? (
-        albums.map((album) => (
-          <Li>
-            <User>
-              <img src="https://placehold.jp/80x80.png" />
-              <p>{album.user}</p>
-            </User>
-            <div id="content_text">
-              <h2>授業の感想</h2>
-              <content>{album.content}</content>
-            </div>
-            <div id="content_text">
-              <h2>今後の目標</h2>
-              <content>{album.content2}</content>
-            </div>
-            <div class='deletebutton'>
-              <Button onClick={()=>handleDelete(album.docid)}>削除</Button>
-            </div>
-          </Li>
-        ))
-      ) : (
-        <p>...loading</p>
-      )}
-    </ul>
+        {albums ? (
+          albums.map((album) => (
+            <Li>
+              <User>
+                <Image>
+                  <img src={album.userimage} alt="userimage" />
+                </Image>
+                <p>{album.user}</p>
+              </User>
+              <div id="content_text">
+                <h1>授業の感想</h1>
+                <content>{album.content}</content>
+              </div>
+              <div id="content_text">
+                <h1>今後の目標</h1>
+                <content>{album.content2}</content>
+              </div>
+              <div class="deletebutton">
+                <Button onClick={() => handleDelete(album.docid)}>削除</Button>
+              </div>
+            </Li>
+          ))
+        ) : (
+          <p>...loading</p>
+        )}
+      </ul>
     </Container>
-  )
+  );
 };
 
 export default Student;
@@ -88,10 +90,16 @@ const Li = styled.div`
 }
 `;
 
+const Image = styled.div``;
+
 const User = styled.div`
   text-align: center;
   color: ;
   img {
-    border-radius: 3em;
+    background-size: cover;
+    object-fit: cover;
+    border-radius: 35px;
+    width: 60px;
+    height: 60px;
   }
 `;

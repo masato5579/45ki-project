@@ -23,7 +23,7 @@ const Chat = () => {
     firebase
       .firestore()
       .collection("messages")
-      .orderBy("dates")
+      .orderBy("dates", "desc")
       .onSnapshot((snapshot) => {
         const messages = snapshot.docs.map((doc) => {
           return doc.data();
@@ -33,7 +33,7 @@ const Chat = () => {
     firebase
       .firestore()
       .collection(user.displayName)
-      .orderBy("dates")
+      .orderBy("dates", "desc")
       .onSnapshot((snapshot) => {
         const image = snapshot.docs.map((doc) => {
           return doc.data();
@@ -114,7 +114,7 @@ export default Chat;
 const MessageWrap = styled.div`
   padding: 30px 0 0 0;
   overflow: scroll;
-  background-image: url('https://www.pakutaso.com/shared/img/thumb/MIYAZAKIDSC_2274_TP_V.jpg');
+  background-image: url("https://www.pakutaso.com/shared/img/thumb/MIYAZAKIDSC_2274_TP_V.jpg");
   oapcity: 0.5;
   height: 100vh;
 `;
@@ -194,7 +194,7 @@ const FormWrap = styled.div`
   bottom: 53px;
   width: 100%;
   height: 50px;
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   boder-top: 1px solid #3e3e3e;
 `;
 

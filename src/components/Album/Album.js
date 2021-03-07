@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../Route/AuthService";
 import firebase from "../../Firebase/firebase";
 import Header from "../common/Header";
@@ -11,64 +11,71 @@ import Student from './Student';
 
 
 const Album = () => {
-
   const [albums, setAlbums] = useState(null);
 
   const [value1, setValue1] = useState("");
   const [value2, setValue2] = useState("");
+  const [userimage, setUserImage] = useState("");
 
   const user = useContext(AuthContext);
 
   
   useEffect(() => {
     firebase
-    .firestore()
-    .collection("albums")
-    .orderBy("dates")
-    .onSnapshot((snapshot) => {
-      const albums = snapshot.docs.map(doc => {
-        return {
-          docid:doc.id,
-          ...doc.data()
+      .firestore()
+      .collection("albums")
+      .orderBy("dates")
+      .onSnapshot((snapshot) => {
+        const albums = snapshot.docs.map((doc) => {
+          return {
+            docid: doc.id,
+            ...doc.data(),
+          };
+        });
+        setAlbums(albums);
+      });
+    firebase
+      .firestore()
+      .collection(user.displayName)
+      .orderBy("dates", "desc")
+      .onSnapshot((snapshot) => {
+        const image = snapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        if (image.length === 0) {
+          setUserImage("");
+        } else {
+          setUserImage(image[0].url);
         }
       });
-      setAlbums(albums);
-    });
-  }, []);
-  
-  
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    firebase
-    .firestore()
-    .collection("albums")
-    .add({
+    firebase.firestore().collection("albums").add({
       content: value1,
       content2: value2,
       user: user.displayName,
+      userimage: userimage,
       dates: new Date(),
     });
-    setValue1("")
-    setValue2("")
-    setDp("none")
+    setValue1("");
+    setValue2("");
+    setDp("none");
   };
 
-  const handleClick = e => {
-    setDp("block")
-  }
+  const handleClick = (e) => {
+    setDp("block");
+  };
 
-  const close = e => {
-    setDp("none")
-  }
-  
+  const close = (e) => {
+    setDp("none");
+  };
+
   const [dp, setDp] = useState("none");
 
   const handleDelete = (docid) => {
-    firebase
-    .firestore()
-    .collection("albums")
-    .doc(docid)
-    .delete()
+    firebase.firestore().collection("albums").doc(docid).delete();
   };
 
   return (
@@ -84,7 +91,7 @@ const Album = () => {
             </div>
           </div>
         </AlbumDesign>
-        <div style={{display: dp}}>
+        <div style={{ display: dp }}>
           <InputDesign>
             <h2>感想・目標の入力！</h2>
             <form onSubmit={handleSubmit}>
@@ -94,7 +101,7 @@ const Album = () => {
             </form>
           </InputDesign>
         </div>
-          <Student albums={albums} handleDelete={handleDelete} />
+        <Student albums={albums} handleDelete={handleDelete} />
       </Layout>
       <Navigation />
     </div>
@@ -145,10 +152,13 @@ form {
   @media (max-width: 768px) {
     width: 80%;
     margin: 0 auto;
+    @media (max-width: 768px) {
+      width: 80%;
+      margin: 0 auto;
+    }
   }
-}
-button {
-  width: 20%;
-  margin: 10px 40%;
-}
+  button {
+    width: 20%;
+    margin: 10px 40%;
+  }
 `;
