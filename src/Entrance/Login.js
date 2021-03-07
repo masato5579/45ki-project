@@ -89,8 +89,9 @@ const InputlBlock = styled.div`
     padding: 10px;
     border: none;
     border-radius: 10px;
-    background-color: transparent; /* 透過 */
-    color: #000000; /* 表示する文字色 */
+    color: #fff;
+    border: 1px solid #fff;
+    background-color: rgba(0,0,0,0.5);
   }
 `;
 

@@ -90,10 +90,12 @@ const Chat = () => {
         <Form onSubmit={handleSubmit}>
           <input
             type="text"
+            placeholder="メッセージを入力"
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
           <Button
+            className="MuiRestBtn"
             variant="contained"
             color="primary"
             endIcon={<SendIcon />}
@@ -118,7 +120,7 @@ const MessageWrap = styled.div`
 `;
 
 const MessageRow = styled.div`
-  padding: 50px 10px ;
+  padding: 50px 10px 105px;
   background-color: rgba(128,128,128,0.5);
   ul {
     li {
@@ -212,7 +214,7 @@ const Form = styled.form`
     width: 100%;
     height: 30px;
     padding: 0 10px;
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 24px;
     border: 1px solid #3e3e3e;
   }
