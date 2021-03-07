@@ -58,7 +58,6 @@ h1 {
   font-weight: bold;
   padding: 0px 0 40px 10px;
   margin-bottom: 20px;
-  background-color: rgba(0, 32, 54, 0.5);
   border-radius: 10px;
   // background-color:rgba(0,32,54,0.5);
   // border-radius: 10px;
@@ -129,4 +128,10 @@ input {
 
 .makeStyles-root-1 {
   border-top: 0;
+}
+
+.MuiRestBtn {
+  &:hover {
+    background-color: transparent !important;
+  }
 }
