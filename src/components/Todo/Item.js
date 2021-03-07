@@ -4,12 +4,9 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const Item = ({ content, id, deleteTodo }) => {
+const Item = ({ todo, content, handleDelete }) => {
   const [isDone, setIsDone] = useState(false)
-
-  const handleDelete = () => {
-    deleteTodo(id)
-  }
+  
 
   return (
     <Itemdesign>
@@ -20,7 +17,7 @@ const Item = ({ content, id, deleteTodo }) => {
           <span style={
             {textDecoration: isDone ? 'line-through' : 'none'}
           }>{content}</span>
-          <Button onClick={handleDelete}
+          <Button onClick={()=>handleDelete(todo.docid)}
             color="secondary"
             startIcon={<DeleteIcon />}
           ></Button>

@@ -3,7 +3,7 @@ import Item from './Item'
 
 import styled from "styled-components";
 
-const List = ({ todos, deleteTodo }) => {
+const List = ({ todos, handleDelete, }) => {
   return (
     <ItermWapper>
       {
@@ -11,9 +11,8 @@ const List = ({ todos, deleteTodo }) => {
           return (
             <Item
               content={todo.content}
-              id={todo.id}
-              key={todo.id}
-              deleteTodo={deleteTodo}
+              todo={todo}
+              handleDelete={handleDelete}
             />
           )
         })

@@ -1,10 +1,14 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
+
+
+
 
 const Student = ({ albums, handleDelete }) => {
   return (
     <Container>
-      <h1>卒業生のコメント</h1>
+      <h2>卒業生のコメント</h2>
       <ul>
         {albums ? (
           albums.map((album) => (
@@ -24,7 +28,7 @@ const Student = ({ albums, handleDelete }) => {
                 <content>{album.content2}</content>
               </div>
               <div class="deletebutton">
-                <button onClick={() => handleDelete(album.docid)}>削除</button>
+                <Button onClick={() => handleDelete(album.docid)}>削除</Button>
               </div>
             </Li>
           ))
@@ -39,26 +43,27 @@ const Student = ({ albums, handleDelete }) => {
 export default Student;
 
 const Container = styled.div`
-  // background-color: #FFCCFF;
-  h1 {
-    font-size: 1.5em;
-    text-align: center;
-    padding: 6% 3% 0% 3%;
-  }
-  ul {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 3%;
-  }
-`;
+// background-color: #FFCCFF;
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+  padding: 6% 3% 0% 3%;
+}
+ul {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 3%;
+}`;
 
 const Li = styled.div`
   width: 30%;
   margin: 10px;
   padding: 1%;
-  background-color: #dc8ba7;
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 1em;
+  box-shadow: 0 0 8px black;
   text-align: center;
   content {
     width: 100%;
@@ -73,7 +78,8 @@ const Li = styled.div`
 }
 #content_text {
   margin: 10px 0;
-} h1 {
+} h2 {
+  color: ;
   font-size: 20px;
   border-bottom: thin solid;
   align-items: center;
@@ -88,6 +94,7 @@ const Image = styled.div``;
 
 const User = styled.div`
   text-align: center;
+  color: ;
   img {
     background-size: cover;
     object-fit: cover;
