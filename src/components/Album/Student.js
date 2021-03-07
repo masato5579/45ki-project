@@ -1,57 +1,57 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-
-
-const Student = ({albums, handleDelete}) => {
-
+const Student = ({ albums, handleDelete }) => {
   return (
     <Container>
       <h1>卒業生のコメント</h1>
       <ul>
-      {albums ? (
-        albums.map((album) => (
-          <Li>
-            <User>
-              <img src="https://placehold.jp/80x80.png" />
-              <p>{album.user}</p>
-            </User>
-            <div id="content_text">
-              <h1>授業の感想</h1>
-              <content>{album.content}</content>
-            </div>
-            <div id="content_text">
-              <h1>今後の目標</h1>
-              <content>{album.content2}</content>
-            </div>
-            <div class='deletebutton'>
-              <button onClick={()=>handleDelete(album.docid)}>削除</button>
-            </div>
-          </Li>
-        ))
-      ) : (
-        <p>...loading</p>
-      )}
-    </ul>
+        {albums ? (
+          albums.map((album) => (
+            <Li>
+              <User>
+                <Image>
+                  <img src={album.userimage} alt="userimage" />
+                </Image>
+                <p>{album.user}</p>
+              </User>
+              <div id="content_text">
+                <h1>授業の感想</h1>
+                <content>{album.content}</content>
+              </div>
+              <div id="content_text">
+                <h1>今後の目標</h1>
+                <content>{album.content2}</content>
+              </div>
+              <div class="deletebutton">
+                <button onClick={() => handleDelete(album.docid)}>削除</button>
+              </div>
+            </Li>
+          ))
+        ) : (
+          <p>...loading</p>
+        )}
+      </ul>
     </Container>
-  )
+  );
 };
 
 export default Student;
 
 const Container = styled.div`
-// background-color: #FFCCFF;
-h1 {
-  font-size: 1.5em;
-  text-align: center;
-  padding: 6% 3% 0% 3%;
-}
-ul {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin: 3%;
-}`;
+  // background-color: #FFCCFF;
+  h1 {
+    font-size: 1.5em;
+    text-align: center;
+    padding: 6% 3% 0% 3%;
+  }
+  ul {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 3%;
+  }
+`;
 
 const Li = styled.div`
   width: 30%;
@@ -84,9 +84,15 @@ const Li = styled.div`
 }
 `;
 
+const Image = styled.div``;
+
 const User = styled.div`
   text-align: center;
   img {
-    border-radius: 3em;
+    background-size: cover;
+    object-fit: cover;
+    border-radius: 35px;
+    width: 60px;
+    height: 60px;
   }
 `;

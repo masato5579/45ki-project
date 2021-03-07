@@ -29,11 +29,11 @@ import ImageAdd from "./Image&Video/ImageAdd";
 import "@draft-js-plugins/inline-toolbar/lib/plugin.css";
 import "../../../index.css";
 import styled from "styled-components";
-import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
-import CancelIcon from "@material-ui/icons/Cancel";
-import TextField from "@material-ui/core/TextField";
+
+import Head from "./Head";
+import Article from "./Article";
+import EditorHead from "./Editor/EditorHead";
+import SaveButton from "./Editor/SaveButton";
 
 const videoPlugin = createVideoPluguin();
 const imagePlugin = createImagePlugin();
@@ -41,25 +41,9 @@ const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin;
 const plugins = [videoPlugin, imagePlugin, inlineToolbarPlugin];
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    width: "100%",
-    background: "#fff",
-  },
-  addbutton: {
-    height: "65px",
-  },
-  savebutton: {
-    padding: "15px 50px",
-  },
-}));
-
 const WysiwygCustom = (props) => {
   //editorをfocusするためのRef
   const editor = useRef();
-
-  //makeStyleの適用
-  const classes = useStyles();
 
   //userの名前
   const userName = String(props.Name);
@@ -122,13 +106,17 @@ const WysiwygCustom = (props) => {
       .orderBy("dates", "desc")
       .onSnapshot((snapshot) => {
         const rec = snapshot.docs.map((doc) => {
-          return doc.data();
+          return {
+            docid: doc.id,
+            ...doc.data(),
+          };
         });
         const recs = rec.map((r) => {
+          const docid = r.docid;
           const title = r.title;
           const content = r.content;
           const dates = r.dates;
-          return { title: title, content: content, dates: dates };
+          return { docid: docid, title: title, content: content, dates: dates };
         });
         setEdit(recs);
       });
@@ -142,6 +130,7 @@ const WysiwygCustom = (props) => {
     setEdit(
       { title: title, content: editTagString, dates: rtn_str }[edit.length + 1]
     );
+    console.log(edit);
     firebase.firestore().collection(userName).add({
       title: title,
       content: editTagString,
@@ -149,6 +138,10 @@ const WysiwygCustom = (props) => {
     });
     setOpen(!open);
     alert("記事が追加されました。");
+  };
+
+  const deleteArticle = (docid) => {
+    firebase.firestore().collection(userName).doc(docid).delete();
   };
 
   //editorにfocus
@@ -172,54 +165,28 @@ const WysiwygCustom = (props) => {
 
   return (
     <Container>
-      <Head>
-        <Title>おすすめ</Title>
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<AddToPhotosIcon />}
-          onClick={toggleEditor}
-          className={classes.addbutton}
-        >
-          おすすめを追加
-        </Button>
-      </Head>
+      <Head toggleEditor={toggleEditor} />
       <Wrap style={{ display: open ? "block" : "none" }}>
         <Row>
-          <EditHead>
-            <Field>
-              <TextField
-                onChange={onTitleChange}
-                id="filled-uncontrolled"
-                label="Title"
-                variant="outlined"
-                className={classes.title}
-              />
-            </Field>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<CancelIcon />}
-              onClick={toggleEditor}
-            >
-              閉じる
-            </Button>
-          </EditHead>
+          <EditorHead
+            onTitleChange={onTitleChange}
+            toggleEditor={toggleEditor}
+          />
           <Add>
-            <div>
+            <AddWrap>
               <VideoAdd
                 editorState={editorState}
                 onChange={onChange}
                 modifier={videoPlugin.addVideo}
               />
-            </div>
-            <div>
+            </AddWrap>
+            <AddWrap>
               <ImageAdd
                 editorState={editorState}
                 onChange={onChange}
                 modifier={imagePlugin.addImage}
               />
-            </div>
+            </AddWrap>
           </Add>
           <Edit className="editor edit" onClick={focus}>
             <Editor
@@ -250,39 +217,10 @@ const WysiwygCustom = (props) => {
               )}
             </InlineToolbar>
           </Edit>
-          <ButtonWrap>
-            <div>
-              <Button
-                onClick={onSave}
-                variant="contained"
-                color="secondary"
-                startIcon={<AddToPhotosIcon />}
-                className={classes.savebutton}
-              >
-                保存する
-              </Button>
-            </div>
-          </ButtonWrap>
+          <SaveButton onSave={onSave} />
         </Row>
       </Wrap>
-      <Ul>
-        {edit ? (
-          edit.map((ed) => (
-            <div
-              className="article"
-              style={{ display: open ? "none" : "block" }}
-            >
-              <h2 className="articleTitles">
-                Title <div className="articleTitle">{ed.title}</div>
-              </h2>
-              <div className="articleUpdatedate">更新日:{ed.dates}</div>
-              <div dangerouslySetInnerHTML={{ __html: ed.content }}></div>
-            </div>
-          ))
-        ) : (
-          <p>...loading</p>
-        )}
-      </Ul>
+      <Article edit={edit} open={open} deleteArticle={deleteArticle} />
     </Container>
   );
 };
@@ -304,15 +242,6 @@ const Wrap = styled.div`
   z-index: 100;
 `;
 
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    width: 100%;
-  }
-`;
-
 const Add = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -324,48 +253,19 @@ const Add = styled.div`
     flex-direction: column;
     width: 100%;
   }
-  div {
-    display: flex;
-    margin: 30px 0;
-    padding: 0 10px;
-    @media (max-width: 768px) {
-      margin: 10px 0;
-      min-width: 120px;
-    }
-  }
 `;
 
-const Title = styled.h1`
-  padding: 10px;
+const AddWrap = styled.div`
+  display: flex;
+  margin: 30px 0;
+  padding: 0 10px;
   @media (max-width: 768px) {
-    font-size: 20px;
-    text-align: center;
+    margin: 10px 0;
+    min-width: 120px;
   }
-`;
-
-const Field = styled.div`
-  width: 60%;
 `;
 
 const Edit = styled.div``;
-
-const EditHead = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  TextField {
-    width: 50%;
-  }
-  Botton {
-    @media (max-width: 768px) {
-      width: 10%;
-    }
-  }
-`;
-
-const ButtonWrap = styled.div`
-  text-align: right;
-`;
 
 const Row = styled.div`
   background-image: url("https://cdn.pixabay.com/photo/2016/05/05/02/37/sunset-1373171__480.jpg");
@@ -377,9 +277,4 @@ const Row = styled.div`
   .editor {
     min-height: 500px;
   }
-`;
-
-const Ul = styled.ul`
-  margin: 0;
-  margin-top: 30px;
 `;
