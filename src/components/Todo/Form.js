@@ -1,21 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
 
-const Form = ({ addTodo } ) => {
-  const [value, setValue] = useState('')
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    if (value === '') {
-      alert('入力値が空になっています！')
-    } else {
-      addTodo(value)
-    }
-    setValue('')
-  }
+const Form = ({ handleSubmit, value, setValue } ) => {
 
   return (
     <FormWrap>

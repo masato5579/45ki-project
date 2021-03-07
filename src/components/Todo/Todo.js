@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import firebase from "../../Firebase/firebase";
+import { AuthContext } from "../../Route/AuthService";
+
 import Header from "../common/Header";
 import Navigation from "../common/Navigation";
-import shortid from 'shortid';
 import styled from 'styled-components';
 
 import Form from './Form';
@@ -11,33 +13,66 @@ import List from './List';
 const Todo = () => {
 
   const [todos, setTodos] = useState([])
+  const [value, setValue] = useState('')
 
-  const addTodo = content => {
-    setTodos([
-      ...todos,
-      {
-        content: content,
-        id: shortid.generate()
-      }
-    ])
-  }
+  const user = useContext(AuthContext);
 
-  const deleteTodo = id => {
-    setTodos(todos.filter(todo => todo.id !== id))
-  }
+
+  useEffect(() => {
+    firebase
+    .firestore()
+    .collection("masaTodo")
+    .orderBy("dates")
+    .onSnapshot((snapshot) => {
+      const todos = snapshot.docs.map(doc => {
+        return {
+          docid:doc.id,
+          ...doc.data()
+        }
+      });
+      setTodos(todos);
+    });
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (value === '') {
+      alert('入力値が空になっています！')
+    } else {
+      firebase
+      .firestore()
+      .collection("masaTodo")
+      .add({
+        content: value,
+        user: user.displayName,
+        dates: new Date(),
+      });
+    }
+    setValue('')
+  };
+
+  const handleDelete = (docid) => {
+    firebase
+    .firestore()
+    .collection("masaTodo")
+    .doc(docid)
+    .delete()
+  };
 
   return (
-    <Wapper>
-      <Header />
-        <Container>
-          <h1>Todoの作成</h1>
-          <List todos={todos} deleteTodo={deleteTodo} />
-        </Container>
-        <FormWrap>
-            <Form addTodo={addTodo} />
+    <div className="wapper">
+      < Header />
+        <Wapper>
+          <Container>
+            <h1>Todoの作成</h1>
+            <List todos={todos} handleDelete={handleDelete}/>
+          </Container>
+          <FormWrap>
+              <Form handleSubmit={handleSubmit} value={value} setValue={setValue} />
           </FormWrap>
+        </Wapper>
       <Navigation />
-    </Wapper>
+    </div>
   );
 };
 
@@ -60,10 +95,5 @@ width: 90%;
 margin: 0 auto;
 padding: 80px 0 0 0;
 height: 80vh;
-// background-color: red;
-
-
-
-
 }
 `;
