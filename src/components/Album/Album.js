@@ -125,7 +125,7 @@ padding: 80px 10px 10px 10px;
   justify-content:space-between;
   font-size: 20px;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  // background-color: rgba(0, 0, 0, 0.7);
   border-radius: 1em;
   padding: 2%;
 h2 {
