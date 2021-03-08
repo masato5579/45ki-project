@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 
 
 
-
 const Student = ({ albums, handleDelete }) => {
   return (
     <Container>
@@ -20,11 +19,11 @@ const Student = ({ albums, handleDelete }) => {
                 <p>{album.user}</p>
               </User>
               <div id="content_text">
-                <h1>授業の感想</h1>
+                <h2>授業の感想</h2>
                 <content>{album.content}</content>
               </div>
               <div id="content_text">
-                <h1>今後の目標</h1>
+                <h2>今後の目標</h2>
                 <content>{album.content2}</content>
               </div>
               <div class="deletebutton">

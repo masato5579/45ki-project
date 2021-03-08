@@ -89,20 +89,9 @@ const FormWrap = styled.div`
 
 const Container = styled.div`
 margin: 0 auto;
-<<<<<<< HEAD
-padding: 80px 0 0 0;
 height: 80vh;
-// overflow: scroll;
-// padding-bottom: 200px;
-=======
 padding: 80px 10px 0;
 background-color: rgba(128,128,128,0.5);
 height: 100vh;
-// background-color: red;
-
-
-
-
->>>>>>> 269c28625d751164aa63f4f75ca57af5b2182ef8
 }
 `;
